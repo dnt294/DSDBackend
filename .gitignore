@@ -19,3 +19,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Nodejs Modules
+/node_modules/*
+
+#Development upload files
+/public/uploads/*
