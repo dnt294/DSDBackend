@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Google Drive Clone</title>
+        <%= csrf_meta_tags %>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <% unless devise_controller? %>
+            <%= stylesheet_link_tag controller_name, 'data-turbolinks-track': 'reload' %>
+        <% end %>
+    </head>
+    <body>
+        <%= render 'shared/header' %>
+        <div class="main-body">
+            <%= yield %>
+        </div>
+    </body>
+</html>
