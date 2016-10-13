@@ -7,10 +7,14 @@
             </div>
         </div>
         <div class="ui text container">
-            <h1 class="ui inverted header">
-                Google Drive Clone.
-        </h1>
+            <h1 class="ui inverted header"> Google Drive Clone. </h1>
             <h2>Bài tập môn Phát triển phần mềm phân tán.</h2>
+            <% if user_signed_in? %>
+                <%= link_to folders_path, class: 'ui icon labeled massive blue button' do %>
+                    <i class="cloud icon"></i>
+                    <p>Vào Drive của bạn.</p>
+                <% end %>
+            <% end %>
         </div>
     </div>
     <%# Content %>
