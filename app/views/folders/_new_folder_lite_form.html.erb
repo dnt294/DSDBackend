@@ -1,0 +1,7 @@
+<%= simple_form_for folder, remote: true do |f| %>
+    <%= f.input :name %>
+    <%= f.input :creator_id, as: :hidden, input_html: { value: current_user.id } %>
+    <div class="form-actions">
+        <%= f.button :submit %>
+    </div>
+<% end %>

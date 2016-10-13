@@ -10,6 +10,7 @@ gem 'typescript-rails'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'ancestry'
 
 gem 'simple_form'
 gem 'pg_search'

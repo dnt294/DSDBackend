@@ -48,6 +48,8 @@ GEM
     after_commit_action (1.0.1)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
+    ancestry (2.1.0)
+      activerecord (>= 3.0.0)
     arel (7.1.4)
     autoprefixer-rails (6.5.0.2)
       execjs
@@ -229,6 +231,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ancestry
   bootstrap-sass
   byebug
   carrierwave

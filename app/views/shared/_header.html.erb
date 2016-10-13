@@ -1,0 +1,9 @@
+<div class="ui borderless menu fixed stackable
+    <%= 'top fixed hidden transition following-header' if current_page?(root_url) %> 
+    ">
+    <div class="right menu">
+        <% if current_controller_is 'folders' %>
+            <%= render 'shared/headers/header_folders' %>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="container-fluid ui container">
+    <div class="ui big breadcrumb">
+        <a class="section">Home Folder</a>
+        <div class="divider">/</div>
+        <a class="section">Child 1</a>
+        <div class="divider">/</div>
+        <div class="active section">Child 2</div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row list folders">
+        <%= render 'folders_list', folders: @folders %>
+    </div>
+</div>

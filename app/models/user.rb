@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+
+    ######################   Devise ######################################
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable and :omniauthable
     devise :database_authenticatable, :registerable,
@@ -12,4 +14,8 @@ class User < ApplicationRecord
             where(conditions.to_h).first
         end
     end
+
+    ########################################################################
+
+    has_many :folders, foreign_key: 'creator_id', class_name: 'Folder'
 end
