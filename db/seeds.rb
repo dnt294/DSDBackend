@@ -16,3 +16,7 @@ DEFAULT_USER =  [
 DEFAULT_USER.each do |user|
     User.create(user)
 end
+
+User.all.each do |user|
+    Folder.create(name: 'Drive của tôi', creator_id: user.id)
+end

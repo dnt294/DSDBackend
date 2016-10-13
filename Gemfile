@@ -9,7 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'typescript-rails'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+
 gem 'ancestry'
 
 gem 'simple_form'
