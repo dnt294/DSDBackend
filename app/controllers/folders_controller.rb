@@ -4,7 +4,7 @@ class FoldersController < ApplicationController
 
     before_action :set_folder, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!
-    before_action :set_new_folder, only: [:index, :show]
+    before_action :set_new_folder_and_comment, only: [:index, :show]
     # GET /folders
     # GET /folders.json
     def index
@@ -73,8 +73,9 @@ class FoldersController < ApplicationController
         @folder = Folder.find(params[:id])
     end
 
-    def set_new_folder
+    def set_new_folder_and_comment
         @new_folder = Folder.new
+        @new_comment = Comment.new
     end
 
     def set_current_children

@@ -18,5 +18,5 @@ DEFAULT_USER.each do |user|
 end
 
 User.all.each do |user|
-    Folder.create(name: 'Drive của tôi', creator_id: user.id)
+    Folder.create(name: 'Drive của tôi', creator_id: user.id, chat_room: ChatRoom.new)
 end

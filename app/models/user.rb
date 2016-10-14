@@ -18,4 +18,8 @@ class User < ApplicationRecord
     ########################################################################
 
     has_many :folders, foreign_key: 'creator_id', class_name: 'Folder'
+
+    has_many :comments
+    has_many :chat_rooms, through: :comments
+
 end

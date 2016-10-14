@@ -1,0 +1,8 @@
+<div style="overflow-y: scroll; height: 300px; background: #FFFFF1">
+    <div id="comments">
+        <% if current_folder.chat_room.comments.any? %>
+            <%= render 'comments/comments', comments: current_folder.chat_room.comments %>
+        <% end %>
+    </div>
+</div>
+<%= render 'comments/form', comment: @new_comment %>
