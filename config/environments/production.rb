@@ -4,7 +4,7 @@ Rails.application.configure do
     # Code is not reloaded between requests.
     config.cache_classes = true
 
-    config.web_socket_server_url = "http://dsd14.herokuapp.com/cable"
+    config.web_socket_server_url = "ws://dsd14.herokuapp.com/cable"
     config.action_cable.allowed_request_origins = ['https://dsd14.herokuapp.com', 'http://adsd14.herokuapp.com']
 
     # Eager load code on boot. This eager loads most of Rails and
