@@ -1,6 +1,6 @@
 production:
   adapter: redis
-  url: redis://localhost:6379/1
+  url: redis-14034.c10.us-east-1-2.ec2.cloud.redislabs.com:14034
 
 development:
   adapter: async
