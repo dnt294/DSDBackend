@@ -11,7 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'redis'
 gem 'ancestry'
-
+gem 'remotipart'
 gem 'simple_form'
 gem 'pg_search'
 gem 'cocoon'

@@ -1,11 +1,40 @@
 <% folders.each do |folder| %>
-    <div class="col-xs-6 col-sm-3 col-md-2 bottom-buffer">
-        <div class="ui segment">
-            <%= link_to folder, remote: true do  %>
-                <div class="ui center aligned header">
-                    <%= folder.name %>
+    <div class="col-xs-6 col-sm-3 col-md-3 bottom-buffer">
+        <div class="ui segment row">
+            <div class="col-xs-2 popupable">
+                <i class="icon folder outline"></i>
+            </div>
+            <div class="ui flowing popup">
+                <div class="ui four column divided center aligned grid">
+                    <div class="column">
+                        <%= link_to folder, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa folder này ?'} do %>
+                            <i class="icon big trash outline"></i>
+                        <% end %>
+                    </div>
+                    <div class="column">
+                        <%= link_to '#' do %>
+                            <i class="icon big edit outline"></i>
+                        <% end %>
+                    </div>
+                    <div class="column">
+                        <%= link_to '#' do %>
+                            <i class="icon big exchange outline"></i>
+                        <% end %>
+                    </div>
+                    <div class="column">
+                        <%= link_to '#' do %>
+                            <i class="icon big slideshare outline"></i>
+                        <% end %>
+                    </div>
                 </div>
-            <% end %>
+            </div>
+            <div class="col-xs-10">
+                <%= link_to folder do  %>
+                    <div class="ui header">
+                        <%= folder.name %>
+                    </div>
+                <% end %>
+            </div>
         </div>
     </div>
 <% end %>

@@ -26,7 +26,6 @@ class CommentsController < ApplicationController
     def create
         @comment = Comment.new(comment_params)
         @comment.user = current_user
-        @comment.chat_room = current_folder.chat_room
         if @comment.save
             ActionCable.server.broadcast 'comments',
                 comment: @comment.content,

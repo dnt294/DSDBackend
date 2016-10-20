@@ -1,0 +1,10 @@
+<% if !folder.nil? %>
+    <% folder.ancestors.each do |ancestor| %>
+        <%= link_to ancestor.name, ancestor , class: 'section' %>
+        <div class="divider">/</div>
+    <% end %>
+    <%= link_to folder.name, folder, class: 'active section'  %>
+<% else %>
+    <%= link_to 'Drive của tôi', folders_path , class: 'active section' %>
+    <div class="divider">/</div>
+<% end %>

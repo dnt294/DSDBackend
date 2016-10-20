@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014134129) do
+ActiveRecord::Schema.define(version: 20161017061618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,20 @@ ActiveRecord::Schema.define(version: 20161014134129) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  create_table "videos", force: :cascade do |t|
+    t.string   "link"
+    t.string   "name"
+    t.integer  "folder_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "uploader_id"
+    t.index ["folder_id"], name: "index_videos_on_folder_id", using: :btree
+    t.index ["uploader_id"], name: "index_videos_on_uploader_id", using: :btree
+  end
+
   add_foreign_key "comments", "chat_rooms"
   add_foreign_key "comments", "users"
   add_foreign_key "folders", "users", column: "creator_id"
+  add_foreign_key "videos", "folders"
+  add_foreign_key "videos", "users", column: "uploader_id"
 end

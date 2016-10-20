@@ -1,0 +1,18 @@
+<% videos.each do |video| %>
+    <div class="col-xs-6 col-sm-3 col-md-2 bottom-buffer">
+        <div class="ui segment popupable" popup>
+            <%= link_to video do  %>
+                <div class="ui center aligned header">
+                    <%= video.name %>
+                </div>
+            <% end %>
+        </div>
+        <div class="ui popup">
+            <div class="ui vertical buttons">
+                <%= link_to 'Xóa', video, method: :delete, remote: :true, data: {confirm: 'Bạn chắc chắn muốn xóa video này ?'}, class: 'ui button' %>
+                <%= link_to 'Đổi tên', '#', class: 'ui button' %>
+                <%= link_to 'Di chuyển', '#', class: 'ui button' %>
+            </div>
+        </div>
+    </div>
+<% end %>

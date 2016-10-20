@@ -1,18 +1,42 @@
 <div class="container-fluid">
     <div class="row">
+        <!-- ------------------main view -------------------------------- -->
         <div class="col-lg-9 col-md-9 col-sm-9">
             <div class="ui big breadcrumb">
-                <%= render 'ancestors_breadcrumb' %>
+                <%= render 'shared/ancestors_breadcrumb', folder: current_folder %>
             </div>
-            <div class="ui divider"></div>
+            <div class="ui horizontal divider">Folder</div>
             <div class="row list folders">
                 <%= render 'folders_list', folders: @folders %>
             </div>
+            <div class="ui horizontal divider">Video</div>
+            <div class="row list videos">
+                <%= render 'videos/videos_list', videos: @videos %>
+            </div>
         </div>
+        <!-- ------------------side menu-------------------------------- -->
         <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="ui horizontal divider">Nhắn tin</div>
             <div class="affix">
                 <%= render current_folder.chat_room %>
             </div>
         </div>
+    </div>
+</div>
+<!-- ------------------------- menu ẩn cho header ----------------------- -->
+<div class="ui small modal new folder">
+    <div class="header">
+        Tạo folder
+    </div>
+    <div id="create-folder-form" class="content">
+        <%= render 'new_folder_lite_form', folder: @new_folder %>
+    </div>
+</div>
+<div class="ui small modal new video">
+    <div class="header">
+        Thêm video
+    </div>
+    <div id="upload-video-form" class="content">
+        <%= render 'new_video_lite_form', video: @new_video %>
     </div>
 </div>

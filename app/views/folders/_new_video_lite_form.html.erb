@@ -1,0 +1,10 @@
+<%= simple_form_for video, html: { multipart: true } do |f| %>
+    <%= f.input :name %>
+    <%= f.file_field :link %>
+    <%= f.hidden_field :link_cache %>
+    <%= f.input :uploader_id, as: :hidden, input_html: { value: current_user.id } %>
+    <%= f.input :folder_id, as: :hidden, input_html: { value: current_folder.id } %>
+    <div class="form-actions">
+        <%= f.button :submit %>
+    </div>
+<% end %>

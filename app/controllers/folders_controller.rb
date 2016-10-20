@@ -4,12 +4,14 @@ class FoldersController < ApplicationController
 
     before_action :set_folder, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!
-    before_action :set_new_folder_and_comment, only: [:index, :show]
+
     # GET /folders
     # GET /folders.json
     def index
         set_current_folder Folder.root_folder_of_user(current_user).id
         set_current_children
+        set_new_items
+        @chat_room = current_folder.chat_room
     end
 
     # GET /folders/1
@@ -17,6 +19,8 @@ class FoldersController < ApplicationController
     def show
         set_current_folder params[:id]
         set_current_children
+        set_new_items
+        @chat_room = current_folder.chat_room
     end
 
     # GET /folders/new
@@ -33,15 +37,10 @@ class FoldersController < ApplicationController
     def create
         @folder = current_folder.children.create folder_params
 
-        respond_to do |format|
-            if @folder.save
-                format.js {
-                    @new_folder= Folder.new
-                    set_current_children
-                }
-            else
-                format.html { render :new }
-            end
+        if @folder.save
+            redirect_to current_folder
+        else
+            redirect_to current_folder
         end
     end
 
@@ -61,10 +60,7 @@ class FoldersController < ApplicationController
     # DELETE /folders/1.json
     def destroy
         @folder.destroy
-        respond_to do |format|
-            format.html { redirect_to folders_url, notice: 'Folder was successfully destroyed.' }
-            format.json { head :no_content }
-        end
+        redirect_to current_folder
     end
 
     private
@@ -73,13 +69,15 @@ class FoldersController < ApplicationController
         @folder = Folder.find(params[:id])
     end
 
-    def set_new_folder_and_comment
+    def set_new_items
         @new_folder = Folder.new
         @new_comment = Comment.new
+        @new_video = Video.new
     end
 
     def set_current_children
         @folders = Folder.children_of current_folder
+        @videos = current_folder.videos
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

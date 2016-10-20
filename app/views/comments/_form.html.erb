@@ -1,8 +1,9 @@
 <%= simple_form_for comment , remote: true do |f| %>
     <div class="form-inputs">
-        <%= f.input :content %>
+        <%= f.input :content, input_html: { rows: 2 } %>
+        <%= f.input :chat_room_id, as: :hidden, input_html: { value: @chat_room.id } %>
     </div>
     <div class="form-actions">
-        <%= f.button :submit %>
+        <%= f.button :submit, 'Nhắn tin', class: 'ui primary submit button' %>
     </div>
 <% end %>
