@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<h1>UpFiles</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Link</th>
+            <th>Name</th>
+            <th>Folder</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @up_files.each do |up_file| %>
+            <tr>
+                <td><%= up_file.link %></td>
+                <td><%= up_file.name %></td>
+                <td><%= up_file.folder %></td>
+                <td><%= link_to 'Show', up_file %></td>
+                <td><%= link_to 'Edit', edit_up_file_path(up_file) %></td>
+                <td><%= link_to 'Destroy', up_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<br>
+<%= link_to 'New UpFile', new_up_file_path %>

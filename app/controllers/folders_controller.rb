@@ -72,12 +72,12 @@ class FoldersController < ApplicationController
     def set_new_items
         @new_folder = Folder.new
         @new_comment = Comment.new
-        @new_video = Video.new
+        @new_up_file = UpFile.new
     end
 
     def set_current_children
         @folders = Folder.children_of current_folder
-        @videos = current_folder.videos
+        @up_files = current_folder.up_files
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

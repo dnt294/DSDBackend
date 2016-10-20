@@ -42,6 +42,19 @@ ActiveRecord::Schema.define(version: 20161017061618) do
     t.index ["creator_id"], name: "index_folders_on_creator_id", using: :btree
   end
 
+  create_table "up_files", force: :cascade do |t|
+    t.string   "link"
+    t.string   "name"
+    t.string   "content_type"
+    t.integer  "file_size"
+    t.integer  "folder_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "uploader_id"
+    t.index ["folder_id"], name: "index_up_files_on_folder_id", using: :btree
+    t.index ["uploader_id"], name: "index_up_files_on_uploader_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -61,20 +74,9 @@ ActiveRecord::Schema.define(version: 20161017061618) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
-  create_table "videos", force: :cascade do |t|
-    t.string   "link"
-    t.string   "name"
-    t.integer  "folder_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "uploader_id"
-    t.index ["folder_id"], name: "index_videos_on_folder_id", using: :btree
-    t.index ["uploader_id"], name: "index_videos_on_uploader_id", using: :btree
-  end
-
   add_foreign_key "comments", "chat_rooms"
   add_foreign_key "comments", "users"
   add_foreign_key "folders", "users", column: "creator_id"
-  add_foreign_key "videos", "folders"
-  add_foreign_key "videos", "users", column: "uploader_id"
+  add_foreign_key "up_files", "folders"
+  add_foreign_key "up_files", "users", column: "uploader_id"
 end

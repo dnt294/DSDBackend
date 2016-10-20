@@ -1,15 +1,15 @@
-<% videos.each do |video| %>
+<% up_files.each do |up_file| %>
     <div class="col-xs-6 col-sm-3 col-md-2 bottom-buffer">
         <div class="ui segment popupable" popup>
-            <%= link_to video do  %>
+            <%= link_to up_file do  %>
                 <div class="ui center aligned header">
-                    <%= video.name %>
+                    <%= up_file.name %>
                 </div>
             <% end %>
         </div>
         <div class="ui popup">
             <div class="ui vertical buttons">
-                <%= link_to 'Xóa', video, method: :delete, remote: :true, data: {confirm: 'Bạn chắc chắn muốn xóa video này ?'}, class: 'ui button' %>
+                <%= link_to 'Xóa', up_file, method: :delete, remote: :true, data: {confirm: 'Bạn chắc chắn muốn xóa up_file này ?'}, class: 'ui button' %>
                 <%= link_to 'Đổi tên', '#', class: 'ui button' %>
                 <%= link_to 'Di chuyển', '#', class: 'ui button' %>
             </div>

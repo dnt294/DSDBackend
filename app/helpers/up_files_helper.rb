@@ -1,0 +1,2 @@
+module UpFilesHelper
+end

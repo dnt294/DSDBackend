@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "videos/index", type: :view do
+RSpec.describe "up_files/index", type: :view do
   before(:each) do
-    assign(:videos, [
-      Video.create!(
+    assign(:up_files, [
+      UpFile.create!(
         :link => "Link",
         :name => "Name",
         :folder => nil
       ),
-      Video.create!(
+      UpFile.create!(
         :link => "Link",
         :name => "Name",
         :folder => nil
@@ -16,7 +16,7 @@ RSpec.describe "videos/index", type: :view do
     ])
   end
 
-  it "renders a list of videos" do
+  it "renders a list of up_files" do
     render
     assert_select "tr>td", :text => "Link".to_s, :count => 2
     assert_select "tr>td", :text => "Name".to_s, :count => 2

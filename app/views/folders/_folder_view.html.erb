@@ -9,9 +9,9 @@
             <div class="row list folders">
                 <%= render 'folders_list', folders: @folders %>
             </div>
-            <div class="ui horizontal divider">Video</div>
-            <div class="row list videos">
-                <%= render 'videos/videos_list', videos: @videos %>
+            <div class="ui horizontal divider">UpFile</div>
+            <div class="row list up_files">
+                <%= render 'up_files/up_files_list', up_files: @up_files %>
             </div>
         </div>
         <!-- ------------------side menu-------------------------------- -->
@@ -32,11 +32,11 @@
         <%= render 'new_folder_lite_form', folder: @new_folder %>
     </div>
 </div>
-<div class="ui small modal new video">
+<div class="ui small modal new up_file">
     <div class="header">
-        Thêm video
+        Thêm up_file
     </div>
-    <div id="upload-video-form" class="content">
-        <%= render 'new_video_lite_form', video: @new_video %>
+    <div id="upload-up_file-form" class="content">
+        <%= render 'new_up_file_lite_form', up_file: @new_up_file %>
     </div>
 </div>

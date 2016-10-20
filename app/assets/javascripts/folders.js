@@ -6,8 +6,8 @@ $(document).on('turbolinks:load', function() {
         $('.ui.modal.new.folder').modal('show');
     });
 
-    $('.new.video').on('click', function() {
-        $('.ui.modal.new.video').modal('show');
+    $('.new.up_file').on('click', function() {
+        $('.ui.modal.new.up_file').modal('show');
     })
 
 
