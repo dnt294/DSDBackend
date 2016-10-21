@@ -1,10 +1,12 @@
-<%= simple_form_for up_file, html: { multipart: true } do |f| %>
-    <%= f.input :name %>
+<%= form_for up_file, remote: true, html: { multipart: true } do |f| %>
+    <%# -- hidden fields - uploader and folder info -- %>
+    <%= f.hidden_field :uploader_id, input_html: { value: current_user.id } %>
+    <%= f.hidden_field :folder_id, input_html: { value: current_folder.id } %>
+    <%# -- upload file section -- %>
+    <%= f.label :link, "Tải file" %><br />
     <%= f.file_field :link %>
-    <%= f.hidden_field :link_cache %>
-    <%= f.input :uploader_id, as: :hidden, input_html: { value: current_user.id } %>
-    <%= f.input :folder_id, as: :hidden, input_html: { value: current_folder.id } %>
-    <div class="form-actions">
-        <%= f.button :submit %>
-    </div>
+</div>
 <% end %>
+<script id="template-upload" type="text/x-tmpl">
+    <%= render 'shared/small_items/upload_tracker' %>
+</script>

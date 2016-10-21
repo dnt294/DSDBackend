@@ -25,11 +25,23 @@ class UpFilesController < ApplicationController
 
     # POST /up_files
     def create
-        @up_file = UpFile.create up_file_params
+        @up_file = UpFile.new up_file_params
+
         if @up_file.save
-            redirect_to current_folder
+            respond_to do |format|
+                #redirect_to current_folder
+                format.html {
+                    render json: [@up_file.to_jq_upload].to_json,
+                    content_type: 'text/html',
+                    layout: false
+                }
+                format.json {
+                    render json: [@up_file.to_jq_upload].to_json
+                }
+            end
         else
-            redirect_to current_folder
+            render json: [{:error => "custom_failure"}], :status => 304
+            #redirect_to current_folder
         end
     end
 
@@ -45,7 +57,9 @@ class UpFilesController < ApplicationController
     # DELETE /up_files/1
     def destroy
         @up_file.destroy
-        redirect_to up_files_url, notice: 'UpFile was successfully destroyed.'
+        redirect_to current_folder, notice: 'UpFile was successfully destroyed.'
+        #render :json => true
+
     end
 
     private
@@ -60,6 +74,6 @@ class UpFilesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def up_file_params
-        params.require(:up_file).permit(:link, :name, :folder_id, :uploader_id, :link_cache)
+        params.require(:up_file).permit(:link, :file_name, :folder_id, :uploader_id)
     end
 end

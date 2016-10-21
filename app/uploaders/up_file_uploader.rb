@@ -42,6 +42,10 @@ class UpFileUploader < CarrierWave::Uploader::Base
         %w(mp4 mp3 pdf)
     end
 
+    # version :thumb do
+    #     process resize_to_fill: [200,200]
+    # end
+
     # Override the filename of the uploaded files:
     # Avoid using model.id or version_name here, see uploader/store.rb for details.
     # def filename

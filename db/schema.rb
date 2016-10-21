@@ -44,12 +44,12 @@ ActiveRecord::Schema.define(version: 20161017061618) do
 
   create_table "up_files", force: :cascade do |t|
     t.string   "link"
-    t.string   "name"
-    t.string   "content_type"
+    t.string   "file_name"
+    t.string   "file_type"
     t.integer  "file_size"
     t.integer  "folder_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "uploader_id"
     t.index ["folder_id"], name: "index_up_files_on_folder_id", using: :btree
     t.index ["uploader_id"], name: "index_up_files_on_uploader_id", using: :btree

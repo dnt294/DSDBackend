@@ -1,6 +1,5 @@
 <div class="container-fluid">
     <div class="row">
-        <!-- ------------------main view -------------------------------- -->
         <div class="col-lg-9 col-md-9 col-sm-9">
             <div class="ui big breadcrumb">
                 <%= render 'shared/ancestors_breadcrumb', folder: current_folder %>
@@ -14,7 +13,6 @@
                 <%= render 'up_files/up_files_list', up_files: @up_files %>
             </div>
         </div>
-        <!-- ------------------side menu-------------------------------- -->
         <div class="col-lg-3 col-md-3 col-sm-3">
             <div class="ui horizontal divider">Nhắn tin</div>
             <div class="affix">
@@ -23,7 +21,6 @@
         </div>
     </div>
 </div>
-<!-- ------------------------- menu ẩn cho header ----------------------- -->
 <div class="ui small modal new folder">
     <div class="header">
         Tạo folder

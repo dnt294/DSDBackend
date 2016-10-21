@@ -5,5 +5,7 @@
 //= require semantic-ui
 //= require turbolinks
 //= require cocoon
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require_tree ./channels
 //= require_tree .
