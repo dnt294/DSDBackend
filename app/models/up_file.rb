@@ -11,17 +11,17 @@ class UpFile < ApplicationRecord
     before_save :update_link_attributes
 
     def file_type
-        return 'mp4' if self.content_type.contain('mp4')
-        return 'mp3' if self.content_type.contain('mp3')
-        return 'pdf' if self.content_type.contain('pdf')
+        return 'mp4' if self.file_type.contain('mp4')
+        return 'mp3' if self.file_type.contain('mp3')
+        return 'pdf' if self.file_type.contain('pdf')
         return nil
     end
 
     TYPES = %W(mp4 mp3 pdf)
 
     def check_type type
-        if !self.content_type.nil?
-            if (self.content_type.include?(type) && TYPES.include?(type))
+        if !self.file_type.nil?
+            if (self.file_type.include?(type) && TYPES.include?(type))
                 return true
             else
                 return false

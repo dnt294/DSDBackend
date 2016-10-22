@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017061618) do
+ActiveRecord::Schema.define(version: 20161022084319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161017061618) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "uploader_id"
+    t.string   "temp_up_id"
     t.index ["folder_id"], name: "index_up_files_on_folder_id", using: :btree
     t.index ["uploader_id"], name: "index_up_files_on_uploader_id", using: :btree
   end

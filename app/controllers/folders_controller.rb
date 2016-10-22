@@ -71,8 +71,7 @@ class FoldersController < ApplicationController
 
     def set_new_items
         @new_folder = Folder.new
-        @new_comment = Comment.new
-        @new_up_file = current_folder.up_files.build(uploader_id: current_user.id)
+        @new_comment = Comment.new        
     end
 
     def set_current_children

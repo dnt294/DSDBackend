@@ -11,4 +11,10 @@ module ApplicationHelper
         session[:current_folder] = folder_id
         @current_folder = Folder.find_by(id: folder_id)
     end
+
+    def truncate_title input, opt = {}
+        length = opt[:length] || 20
+        truncate(input, length: length)    
+    end
+
 end
