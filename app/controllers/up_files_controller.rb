@@ -30,7 +30,14 @@ class UpFilesController < ApplicationController
         @temp_upfile = UpFile.new up_file_params
 
         content_range = request.headers['CONTENT-RANGE']
+
+        if content_range.nil? #file nhỏ hơn 5MB, lưu ko ko phải tính :D
+            @temp_upfile.save
+            return
+        end
+
         content_length = request.headers['CONTENT-LENGTH'].to_i
+
         begin_of_chunk = content_range[/\ (.*?)-/,1].to_i
         # "bytes 100-999999/1973660678" will return '100'
 

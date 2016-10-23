@@ -9,6 +9,9 @@
                 <%= video_tag( @up_file.link , size: "620x440", controls: true, autoplay: true) %>
             <% elsif @up_file.check_type 'mp3' %>
                 <%= audio_tag( @up_file.link , controls: true, autoplay: true) %>
+            <% elsif @up_file.check_type 'pdf' %>
+            <iframe src=<%= @up_file.link %> width="700" height="500" style="border: none;"> </iframe>
+
             <% end %>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3">

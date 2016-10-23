@@ -16,9 +16,11 @@ gem 'simple_form'
 gem 'pg_search'
 gem 'cocoon'
 gem 'devise'
+gem 'simple_token_authentication'
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'counter_culture'
+gem 'active_model_serializers'
 gem "jquery-fileupload-rails"
 
 group :development do

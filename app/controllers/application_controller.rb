@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
     protect_from_forgery prepend: true
     before_action :configure_permitted_params, if: :devise_controller?
 
+	#acts_as_token_authentication_handler_for User
+
+
     protected
 
     def configure_permitted_params

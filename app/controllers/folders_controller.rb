@@ -71,7 +71,7 @@ class FoldersController < ApplicationController
 
     def set_new_items
         @new_folder = Folder.new
-        @new_comment = Comment.new        
+        @new_comment = Comment.new
     end
 
     def set_current_children

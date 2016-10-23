@@ -8,19 +8,14 @@ class UpFile < ApplicationRecord
     has_one :chat_room, as: :crmable, dependent: :destroy
 
     before_create :create_chat_room
-    before_save :update_link_attributes
-
-    def file_type
-        return 'mp4' if self.file_type.contain('mp4')
-        return 'mp3' if self.file_type.contain('mp3')
-        return 'pdf' if self.file_type.contain('pdf')
-        return nil
-    end
+    #before_save :update_link_attributes
 
     TYPES = %W(mp4 mp3 pdf)
 
-    def check_type type
+    def check_type type        
+        
         if !self.file_type.nil?
+            
             if (self.file_type.include?(type) && TYPES.include?(type))
                 return true
             else
@@ -54,6 +49,16 @@ class UpFile < ApplicationRecord
             self.file_type = link.file.content_type
             self.file_size = link.file.size
             self.file_name = File.basename(link.filename,'.*').titleize
+        end
+    end
+
+    def file_type_s
+        TYPES.each do |type|
+            byebug
+            if self.file_type.includes?(type)
+                byebug
+                return type
+            end            
         end
     end
 
