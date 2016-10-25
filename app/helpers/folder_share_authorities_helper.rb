@@ -1,0 +1,2 @@
+module FolderShareAuthoritiesHelper
+end

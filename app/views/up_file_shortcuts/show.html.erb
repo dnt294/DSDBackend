@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Up file:</strong>
+  <%= @up_file_shortcut.up_file %>
+</p>
+
+<p>
+  <strong>Folder:</strong>
+  <%= @up_file_shortcut.folder %>
+</p>
+
+<%= link_to 'Edit', edit_up_file_shortcut_path(@up_file_shortcut) %> |
+<%= link_to 'Back', up_file_shortcuts_path %>

@@ -2,15 +2,26 @@ class UpFile < ApplicationRecord
     include Rails.application.routes.url_helpers
 
     mount_uploader :link, UpFileUploader
-
-    belongs_to :folder
+    
     belongs_to :uploader, class_name: 'User'
     has_one :chat_room, as: :crmable, dependent: :destroy
 
+    has_many :up_file_share_authorities, dependent: :destroy
+
+
+    ####### Quản lý các file shortcut tới thư mục ###########
+    ##  1 file có nhiều đường dẫn tới các folder, tuy nhiên chỉ có 1 đường dẫn là 'direct', còn lại là 'shortcut'
+
+    has_many :up_file_shortcuts, dependent: :destroy
+    has_many :folders, through: :up_file_shortcuts
+
+    ################################################
+
     before_create :create_chat_room
-    #before_save :update_link_attributes
+    before_save :update_link_attributes
 
     TYPES = %W(mp4 mp3 pdf)
+    STATUS = %W(ready uploading copying)
 
     def check_type type        
         

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Folder:</strong>
+  <%= @folder_share_authority.folder %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @folder_share_authority.user %>
+</p>
+
+<p>
+  <strong>Can create:</strong>
+  <%= @folder_share_authority.can_create %>
+</p>
+
+<p>
+  <strong>Can view:</strong>
+  <%= @folder_share_authority.can_view %>
+</p>
+
+<p>
+  <strong>Can update:</strong>
+  <%= @folder_share_authority.can_update %>
+</p>
+
+<p>
+  <strong>Can destroy:</strong>
+  <%= @folder_share_authority.can_destroy %>
+</p>
+
+<%= link_to 'Edit', edit_folder_share_authority_path(@folder_share_authority) %> |
+<%= link_to 'Back', folder_share_authorities_path %>

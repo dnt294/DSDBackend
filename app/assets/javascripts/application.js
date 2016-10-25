@@ -9,3 +9,11 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require_tree ./channels
 //= require_tree .
+
+$(document).ready(function() {
+    $(document).on("click", ".full-row-clickable", function() {
+        var link = $(this).data("href");
+        window.location = link;
+    });
+
+});

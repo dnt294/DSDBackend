@@ -4,8 +4,7 @@ class CreateUpFiles < ActiveRecord::Migration[5.0]
             t.string :link
             t.string :file_name
             t.string :file_type
-            t.integer :file_size
-            t.references :folder, foreign_key: true
+            t.integer :file_size            
 
             t.timestamps
         end

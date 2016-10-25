@@ -33,6 +33,7 @@ class UpFilesController < ApplicationController
 
         if content_range.nil? #file nhỏ hơn 5MB, lưu ko ko phải tính :D
             @temp_upfile.save
+            save_direct_shortcut_for_file @temp_upfile, params[:folder_id]
             return
         end
 
@@ -41,9 +42,9 @@ class UpFilesController < ApplicationController
         begin_of_chunk = content_range[/\ (.*?)-/,1].to_i
         # "bytes 100-999999/1973660678" will return '100'
 
-        if (begin_of_chunk == 0)
-            
+        if (begin_of_chunk == 0)            
             @temp_upfile.save
+            save_direct_shortcut_for_file @temp_upfile, params[:folder_id]
         else
             @up_file = UpFile.find_by(temp_up_id: @temp_upfile.temp_up_id)            
             @up_file.file_size += content_length
@@ -84,8 +85,13 @@ class UpFilesController < ApplicationController
         @new_comment = Comment.new
     end
 
+    def save_direct_shortcut_for_file up_file, folder_id
+        shortcut = UpFileShortcut.new(up_file: up_file, folder_id: folder_id)
+        shortcut.save
+    end
+
     # Only allow a trusted parameter "white list" through.
     def up_file_params
-        params.require(:up_file).permit(:link, :file_name, :folder_id, :uploader_id, :temp_up_id)
+        params.require(:up_file).permit(:link, :file_name, :uploader_id, :temp_up_id, up_file_shortcuts_params: [:up_file_id, :folder_id])
     end
 end

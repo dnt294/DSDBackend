@@ -1,7 +1,6 @@
-<%= form_for UpFile.new(folder: current_folder, uploader_id: current_user.id), html: { multipart: true } do |f| %>
+<%= form_for UpFile.new, url: up_files_path(folder_id: current_folder.id), html: { multipart: true } do |f| %>
     <%# -- hidden fields - uploader and folder info -- %>
-    <%= f.hidden_field :uploader_id, input_html: { value: current_user.id } %>
-    <%= f.hidden_field :folder_id, input_html: { value: current_folder.id } %>
+    <%= f.hidden_field :uploader_id, value: current_user.id %>
     <%= f.hidden_field :temp_up_id, value: SecureRandom.base64 %>
     <%# -- upload file section -- %>
     <div class="row">

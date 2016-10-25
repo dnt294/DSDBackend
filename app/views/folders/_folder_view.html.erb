@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid padding-2-size">
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-9">
             <div class="ui big breadcrumb">
@@ -14,8 +14,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3">
-            <div class="ui horizontal divider">Nhắn tin</div>
-            <div class="affix">
+            <div class="affix chat-zone">
                 <%= render current_folder.chat_room %>
             </div>
         </div>
@@ -35,5 +34,12 @@
     </div>
     <div id="upload-file-form" class="content">
         <%= render 'new_up_file_lite_form', up_file: @new_up_file %>
+    </div>
+</div>
+<div class="ui small modal share-manager">
+    <div class="header">
+        Quản lý quyền chia sẻ
+    </div>    
+    <div class="content">
     </div>
 </div>

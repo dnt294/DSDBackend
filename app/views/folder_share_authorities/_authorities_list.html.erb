@@ -1,0 +1,29 @@
+<table class="ui celled structured table">
+    <thead>
+        <tr>
+            <td rowspan="2">Username</td>
+            <td rowspan="2">Email</td>
+            <td colspan="4" class="center aligned">Quyền</td>
+            <td rowspan="2">Hủy</td>
+        </tr>
+        <tr>
+            <td>Tạo</td>
+            <td>Xem</td>
+            <td>Sửa</td>
+            <td>Xóa</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% authorities.each do |authority| %>
+            <tr>
+                <td><%= authority.user.username %></td>
+                <td><%= authority.user.email %></td>
+                <td><%= authority.can_create? %></td>
+                <td><%= authority.can_view? %></td>
+                <td><%= authority.can_update? %></td>
+                <td><%= authority.can_destroy? %></td>
+                <td>X</td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

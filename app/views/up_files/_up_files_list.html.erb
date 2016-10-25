@@ -1,45 +1,76 @@
-<% up_files.each do |up_file| %>
-    <div class="col-xs-6 col-sm-3 col-md-2 bottom-buffer">
-        <div class="row">
-            <div class="col-xs-12 popupable" data-position='right center'>
-                <div class="up-file center-block">
-                    <%= image_tag 'https://lh5.ggpht.com/8h4a-QzLFHu3pxFZ-Np8AyyUCq1G97T1_7F3ScjbBaxb6wGSdoCLHanFtnQa9kbg0d4=w300', style: 'height: 100px' %>
-                </div>
-            </div>
-            <div class="ui flowing popup right center transition">
-                <div class="ui one column divided center aligned grid">
-                    <div class="column">
-                        <%= link_to up_file, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa file này ?'} do %>
-                            <i class="icon big trash outline"></i>
-                            <p>Xóa file</p>
-                        <% end %>
+<table class="ui single line selectable striped large table">
+    <thead>
+        <tr>
+            <td>
+                <div class="ui header">Tên</div>
+            </td>
+            <td>
+                <div class="ui header">Loại</div>
+            </td>
+            <td>
+                <div class="ui header">Kích thước</div>
+            </td>
+            <td>
+                <div class="ui header">Người tạo</div>
+            </td>
+            <td>
+                <div class="ui header">Chỉnh sửa lần cuối</div>
+            </td>
+            <td>...</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% up_files.each do |up_file| %>
+            <tr>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= up_file.file_name %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= up_file.file_type %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= number_to_human_size up_file.file_size %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= up_file.uploader.username %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= time_ago_in_words up_file.updated_at %>
+                </td>
+                <td>
+                    <div class="popupable">
+                        <i class="icon setting outline"></i>
                     </div>
-                    <div class="column">
-                        <%= link_to '#' do %>
-                            <i class="icon big edit outline"></i>
-                            <p>Đổi tên</p>
-                        <% end %>
+                    <div class="ui flowing popup right center transition">
+                        <div class="ui one column divided center aligned grid">
+                            <div class="column">
+                                <%= link_to up_file, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa file này ?'} do %>
+                                    <i class="icon big trash outline"></i>
+                                    <p>Xóa file</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to '#' do %>
+                                    <i class="icon big edit outline"></i>
+                                    <p>Đổi tên</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to '#' do %>
+                                    <i class="icon big exchange outline"></i>
+                                    <p>Di chuyển</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to '#' do %>
+                                    <i class="icon big slideshare outline"></i>
+                                    <p>Chia sẻ</p>
+                                <% end %>
+                            </div>
+                        </div>
                     </div>
-                    <div class="column">
-                        <%= link_to '#' do %>
-                            <i class="icon big exchange outline"></i>
-                            <p>Di chuyển</p>
-                        <% end %>
-                    </div>
-                    <div class="column">
-                        <%= link_to '#' do %>
-                            <i class="icon big slideshare outline"></i>
-                            <p>Chia sẻ</p>
-                        <% end %>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12">
-                <%= link_to up_file do  %>
-                    <%= truncate_title up_file.file_name, length: 25 %>
-                <% end %>    
-                
-            </div>
-        </div>
-    </div>
-<% end %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

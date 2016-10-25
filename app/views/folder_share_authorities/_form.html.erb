@@ -1,0 +1,16 @@
+<%= simple_form_for(@folder_share_authority) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :folder %>
+    <%= f.association :user %>
+    <%= f.input :can_create %>
+    <%= f.input :can_view %>
+    <%= f.input :can_update %>
+    <%= f.input :can_destroy %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

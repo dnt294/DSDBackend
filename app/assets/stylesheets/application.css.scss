@@ -21,9 +21,6 @@
 @import "bootstrap/mixins/grid";
 @import "bootstrap/grid";
 
-body {
-	background-color: #F2F2F2;
-}
 div.hidden {
 	display: none;
 }
@@ -35,4 +32,26 @@ div.hidden {
 
 .bottom-buffer {
     margin-bottom:20px;
+}
+
+.padding-2-size {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.padding-vertical {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.main-header {
+	background-color: #EDEDED !important;
+}
+
+.chat-zone {	
+	height: 80vh;
+}
+
+.comment-box {	
+	height: 150px;
 }

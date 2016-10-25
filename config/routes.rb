@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 	
+  resources :up_file_share_authorities
+  resources :folder_share_authorities
+  resources :up_file_shortcuts
 	resources :up_files
 
     resources :comments

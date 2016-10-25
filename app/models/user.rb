@@ -24,4 +24,7 @@ class User < ApplicationRecord
     has_many :comments
     has_many :chat_rooms, through: :comments
 
+    has_many :folder_share_authorities, dependent: :destroy
+    has_many :up_file_share_authorities, dependent: :destroy
+
 end

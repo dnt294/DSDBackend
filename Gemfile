@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'redis'
 gem 'ancestry'
 gem 'remotipart'
+gem 'rails-i18n', '~> 5.0.0' # For 5.0.x
 gem 'simple_form'
 gem 'pg_search'
 gem 'cocoon'

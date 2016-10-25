@@ -1,0 +1,12 @@
+<%= simple_form_for FolderShareAuthority.new, remote: true do |f| %>
+    <%= f.input :folder_id, as: :hidden, input_html: { value: @folder_id } %>
+    <div class="field">
+        <%= label_tag 'Nhập email:' %>
+        <%= text_field_tag :user_email %>
+    </div>
+    <%= submit_tag 'Nhập tên', class:"ui button" %>
+<% end %>
+<div class="ui horizontal divider">Danh sách chia sẻ</div>
+<div id="folder-share-authorities">
+    <%= render 'authorities_list', authorities: @folder_share_authorities %>
+</div>
