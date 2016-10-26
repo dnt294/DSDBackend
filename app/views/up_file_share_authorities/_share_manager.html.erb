@@ -1,0 +1,13 @@
+<%= simple_form_for UpFileShareAuthority.new, remote: true do |f| %>
+    <%= f.input :up_file_id, as: :hidden, input_html: { value: @up_file_id } %>
+    <%= f.input :direct_share, as: :hidden, input_html: {value: true} %>
+    <div class="field">
+        <%= label_tag 'Nhập email:' %>
+        <%= text_field_tag :user_email %>
+    </div>
+    <%= submit_tag 'Nhập tên', class:"ui button" %>
+<% end %>
+<div class="ui horizontal divider">Danh sách chia sẻ</div>
+<div id="folder-share-authorities">
+    <%= render 'authorities_list', authorities: @up_file_share_authorities %>
+</div>

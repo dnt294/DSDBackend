@@ -17,4 +17,7 @@ module ApplicationHelper
         truncate(input, length: length)    
     end
 
+    def aut_params bool_var
+        bool_var ? 'Có' : 'Không'
+    end
 end

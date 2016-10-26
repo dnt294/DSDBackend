@@ -1,5 +1,6 @@
 <%= simple_form_for FolderShareAuthority.new, remote: true do |f| %>
     <%= f.input :folder_id, as: :hidden, input_html: { value: @folder_id } %>
+    <%= f.input :direct_share, as: :hidden, input_html: {value: true} %>
     <div class="field">
         <%= label_tag 'Nhập email:' %>
         <%= text_field_tag :user_email %>

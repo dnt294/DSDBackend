@@ -36,13 +36,14 @@ ActiveRecord::Schema.define(version: 20161025091038) do
   create_table "folder_share_authorities", force: :cascade do |t|
     t.integer  "folder_id"
     t.integer  "user_id"
-    t.boolean  "can_create"
-    t.boolean  "can_view",    default: true
-    t.boolean  "can_update"
-    t.boolean  "can_destroy"
-    t.string   "share_type"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "can_create",   default: true
+    t.boolean  "can_view",     default: true
+    t.boolean  "can_rename",   default: false
+    t.boolean  "can_move",     default: false
+    t.boolean  "can_destroy",  default: false
+    t.boolean  "direct_share", default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.index ["folder_id"], name: "index_folder_share_authorities_on_folder_id", using: :btree
     t.index ["user_id"], name: "index_folder_share_authorities_on_user_id", using: :btree
   end
@@ -69,13 +70,13 @@ ActiveRecord::Schema.define(version: 20161025091038) do
   create_table "up_file_share_authorities", force: :cascade do |t|
     t.integer  "up_file_id"
     t.integer  "user_id"
-    t.boolean  "can_create"
-    t.boolean  "can_view",    default: true
-    t.boolean  "can_update"
-    t.boolean  "can_destroy"
-    t.string   "share_type"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "can_view",     default: true
+    t.boolean  "can_rename",   default: false
+    t.boolean  "can_move",     default: false
+    t.boolean  "can_destroy",  default: false
+    t.boolean  "direct_share", default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.index ["up_file_id"], name: "index_up_file_share_authorities_on_up_file_id", using: :btree
     t.index ["user_id"], name: "index_up_file_share_authorities_on_user_id", using: :btree
   end

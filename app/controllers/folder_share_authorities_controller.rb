@@ -9,7 +9,7 @@ class FolderShareAuthoritiesController < ApplicationController
                 @folder_id = params[:id]
             }
         end
-    end   
+    end
 
     # GET /folder_share_authorities/1
     def show
@@ -29,6 +29,7 @@ class FolderShareAuthoritiesController < ApplicationController
         @folder_share_authority = FolderShareAuthority.new(folder_share_authority_params)
         @user = User.find_by(email: params[:user_email])
         @folder_share_authority.user = @user
+
         if @folder_share_authority.save
             respond_to do |format|
                 format.js {
@@ -39,28 +40,55 @@ class FolderShareAuthoritiesController < ApplicationController
                 }
             end
         else
-            respond_to to |format|
-            format.js {}
-            format.html {render :new}
+            respond_to do |format|
+                format.js {
+                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_share_authority.folder_id).includes(:user)
+                }
+                format.html {
+                    render :new
+                }
+            end
         end
+
     end
-
-
-
 
     # PATCH/PUT /folder_share_authorities/1
     def update
-        if @folder_share_authority.update(folder_share_authority_params)
-            redirect_to @folder_share_authority, notice: 'Folder share authority was successfully updated.'
+        update_rights_for_item @folder_share_authority
+        if @folder_share_authority.save
+            respond_to do |format|
+                format.js {
+                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_share_authority.folder_id).includes(:user)
+                }
+                format.html {
+                    redirect_to @folder_share_authority, notice: 'Folder share authority was successfully updated.'
+                }
+            end
         else
-            render :edit
+            respond_to do |format|
+                format.js {
+                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_share_authority.folder_id).includes(:user)
+                }
+                format.html {
+                    render :edit
+                }
+            end
         end
     end
 
     # DELETE /folder_share_authorities/1
     def destroy
+        @folder_id = @folder_share_authority.folder_id
         @folder_share_authority.destroy
-        redirect_to folder_share_authorities_url, notice: 'Folder share authority was successfully destroyed.'
+        respond_to do |format|
+            format.js {
+                @folder_share_authorities = FolderShareAuthority.of_folder(@folder_id).includes(:user)
+            }
+            format.html {
+                redirect_to folder_share_authorities_url, notice: 'Folder share authority was successfully destroyed.'
+            }
+        end
+
     end
 
     private
@@ -69,8 +97,22 @@ class FolderShareAuthoritiesController < ApplicationController
         @folder_share_authority = FolderShareAuthority.find(params[:id])
     end
 
+    def update_rights_for_item item        
+        if params.has_key?(:can_create)
+            item.can_create = params[:can_create]
+        elsif params.has_key?(:can_view)
+            item.can_view = params[:can_view]
+        elsif params.has_key?(:can_rename)
+            item.can_rename = params[:can_rename]
+        elsif params.has_key?(:can_move)
+            item.can_move = params[:can_move]
+        elsif params.has_key?(:can_destroy)
+            item.can_destroy = params[:can_destroy]
+        end
+    end
+
     # Only allow a trusted parameter "white list" through.
     def folder_share_authority_params
-        params.require(:folder_share_authority).permit(:folder_id, :user_id, :user_email, :can_create, :can_view, :can_update, :can_destroy)
+        params.require(:folder_share_authority).permit(:folder_id, :user_id, :user_email, :can_create, :can_view, :can_rename, :can_move, :can_destroy, :direct_share)
     end
 end

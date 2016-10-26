@@ -1,0 +1,30 @@
+<table class="ui celled structured table">
+    <thead>
+        <tr>
+            <td rowspan="2">Username</td>
+            <td rowspan="2">Email</td>
+            <td colspan="4" class="center aligned">Quyền</td>
+            <td rowspan="2">Trực tiếp chia sẻ?</td>
+            <td rowspan="2">Hủy</td>
+        </tr>
+        <tr>            
+            <td>Xem</td>
+            <td>Đổi tên</td>
+            <td>Di chuyển</td>
+            <td>Xóa</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% authorities.each do |authority| %>
+            <tr>
+                <td><%= authority.user.username %></td>
+                <td><%= authority.user.email %></td>                
+                <td><%= authority.can_rename? %></td>
+                <td><%= authority.can_move? %></td>
+                <td><%= authority.can_destroy? %></td>
+                <td><%= authority.direct_share? %></td>
+                <td>X</td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

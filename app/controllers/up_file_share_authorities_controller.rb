@@ -53,6 +53,6 @@ class UpFileShareAuthoritiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def up_file_share_authority_params
-      params.require(:up_file_share_authority).permit(:up_file_id, :user_id, :can_create, :can_view, :can_update, :can_destroy)
+      params.require(:up_file_share_authority).permit(:up_file_id, :user_id, :can_view, :can_rename, :can_move, :can_destroy, :direct_share)
     end
 end
