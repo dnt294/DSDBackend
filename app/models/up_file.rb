@@ -7,13 +7,17 @@ class UpFile < ApplicationRecord
     has_one :chat_room, as: :crmable, dependent: :destroy
 
     has_many :up_file_share_authorities, dependent: :destroy
-
+    has_many :shared_users, through: :up_file_share_authorities, source: :user
 
     ####### Quản lý các file shortcut tới thư mục ###########
     ##  1 file có nhiều đường dẫn tới các folder, tuy nhiên chỉ có 1 đường dẫn là 'direct', còn lại là 'shortcut'
 
     has_many :up_file_shortcuts, dependent: :destroy
     has_many :folders, through: :up_file_shortcuts
+    
+    ################################################
+
+    scope :shared_with, -> (user) { user.shared_up_files.merge(UpFileShareAuthority.directed) }
 
     ################################################
 

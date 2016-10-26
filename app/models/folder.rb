@@ -6,7 +6,7 @@ class Folder < ApplicationRecord
     has_one :chat_room, as: :crmable, dependent: :destroy
         
     has_many :folder_share_authorities, dependent: :destroy
-    
+    has_many :shared_users, through: :folder_share_authorities, source: :user
 
     ####### Quản lý các file shortcut tới thư mục ###########
     ##  1 file có nhiều đường dẫn tới các folder, tuy nhiên chỉ có 1 đường dẫn là 'direct', còn lại là 'shortcut'
@@ -30,6 +30,8 @@ class Folder < ApplicationRecord
     scope :root_folder_of_user, ->(user) { where(creator_id: user.id, ancestry: nil).first }
 
     scope :children_of, ->(folder) { folder.children }
+
+    scope :shared_with, -> (user) { user.shared_folders.merge(FolderShareAuthority.directed) }
 
     before_create :create_chat_room
 

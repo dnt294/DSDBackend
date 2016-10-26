@@ -1,8 +1,10 @@
-<a class="new folder item">
-    Tạo folder
+<% unless @shared_with_me_page %>
+    <a class="new folder item">
+        Tạo folder
     <i class="dropdown icon"></i>
-</a>
-<a class="new up_file item">
-    Thêm file
+    </a>
+    <a class="new up_file item">
+        Thêm file
     <i class="dropdown icon"></i>
-</a>
+    </a>
+<% end %>

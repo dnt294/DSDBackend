@@ -63,6 +63,12 @@ class FoldersController < ApplicationController
         redirect_to current_folder
     end
 
+
+    def shared_with_me
+       @folders = Folder.shared_with current_user
+       @up_files = UpFile.shared_with current_user
+    end
+
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_folder

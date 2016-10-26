@@ -1,3 +1,5 @@
+<% @shared_with_me_page = true %>
+
 <div class="container-fluid padding-2-size">
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2">
@@ -7,7 +9,7 @@
                 <%= link_to 'Bài học chung', '#', class: 'item'  %>
             </div>
         </div>
-        <div class="col-lg-7 col-md-7 col-sm-7">
+        <div class="col-lg-10 col-md-10 col-sm-10">
             <div class="ui big breadcrumb">
                 <%= render 'shared/ancestors_breadcrumb', folder: current_folder %>
             </div>
@@ -19,30 +21,10 @@
             <div class="row list up_files">
                 <%= render 'up_files/up_files_list', up_files: @up_files %>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3">
-            <div class="affix chat-zone">
-                <%= render current_folder.chat_room %>
-            </div>
-        </div>
+        </div>        
     </div>
 </div>
-<div class="ui small modal new folder">
-    <div class="header">
-        Tạo folder
-    </div>
-    <div id="create-folder-form" class="content">
-        <%= render 'new_folder_lite_form', folder: @new_folder %>
-    </div>
-</div>
-<div class="ui small modal new up_file">
-    <div class="header">
-        Chọn file muốn tải lên.
-    </div>
-    <div id="upload-file-form" class="content">
-        <%= render 'new_up_file_lite_form', up_file: @new_up_file %>
-    </div>
-</div>
+
 <div class="ui small modal share-manager">
     <div class="header">
         Quản lý quyền chia sẻ

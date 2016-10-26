@@ -26,5 +26,12 @@ class User < ApplicationRecord
 
     has_many :folder_share_authorities, dependent: :destroy
     has_many :up_file_share_authorities, dependent: :destroy
+    has_many :shared_folders, through: :folder_share_authorities, source: :folder
+    has_many :shared_up_files, through: :up_file_share_authorities, source: :up_file
+
+    #############################################################
+
+    
+    
 
 end
