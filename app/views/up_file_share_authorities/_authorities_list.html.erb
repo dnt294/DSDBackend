@@ -3,12 +3,11 @@
         <tr>
             <td rowspan="2">Username</td>
             <td rowspan="2">Email</td>
-            <td colspan="4" class="center aligned">Quyền</td>
-            <td rowspan="2">Trực tiếp chia sẻ?</td>
+            <td colspan="3" class="center aligned">Quyền</td>
+            <td rowspan="2">Trực tiếp ?</td>
             <td rowspan="2">Hủy</td>
         </tr>
         <tr>            
-            <td>Xem</td>
             <td>Đổi tên</td>
             <td>Di chuyển</td>
             <td>Xóa</td>
@@ -18,12 +17,23 @@
         <% authorities.each do |authority| %>
             <tr>
                 <td><%= authority.user.username %></td>
-                <td><%= authority.user.email %></td>                
-                <td><%= authority.can_rename? %></td>
-                <td><%= authority.can_move? %></td>
-                <td><%= authority.can_destroy? %></td>
-                <td><%= authority.direct_share? %></td>
-                <td>X</td>
+                <td><%= authority.user.email %></td>
+                <td class="ui center aligned">
+                    <%= link_to aut_params(authority.can_rename?), up_file_share_authority_path(authority, can_rename: !authority.can_rename?), method: :put, remote: true, class: 'detect-ajax-error' %>
+                </td>
+                <td class="ui center aligned">
+                    <%= link_to aut_params(authority.can_move?), up_file_share_authority_path(authority, can_move: !authority.can_move?), method: :put, remote: true, class: 'detect-ajax-error' %>
+                </td>
+                <td class="ui center aligned">
+                    <%= link_to aut_params(authority.can_destroy?), up_file_share_authority_path(authority, can_destroy: !authority.can_destroy?), method: :put, remote: true, class: 'detect-ajax-error' %>
+                </td>
+                <td class="ui center aligned">
+                    <div class="ui fitted disabled checkbox">
+                        <input type="checkbox" <%= "checked=''" if authority.direct_share? %> disabled="disabled">
+                        <label></label>
+                    </div>
+                </td>
+                <td><%= link_to 'Xóa', authority, method: :delete, remote: true, data: { confirm: 'Bạn muốn hủy chia sẻ với người này ?' } %></td>                
             </tr>
         <% end %>
     </tbody>
