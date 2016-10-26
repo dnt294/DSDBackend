@@ -20,4 +20,9 @@ module ApplicationHelper
     def aut_params bool_var
         bool_var ? 'Có' : 'Không'
     end
+
+    def shared_with_me_page
+        @shared_with_me_page
+    end
+
 end

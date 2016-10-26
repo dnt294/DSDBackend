@@ -29,26 +29,47 @@
                     <div class="popupable">
                         <i class="icon setting outline"></i>
                     </div>
-                    <div class="ui flowing popup right center transition">
+                    <div class="ui popup right center transition">
                         <div class="ui one column divided center aligned grid">
-                            <div class="column">
-                                <%= link_to folder, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa folder này ?'} do %>
-                                    <i class="icon big trash outline"></i>
-                                    <p>Xóa folder</p>
-                                <% end %>
-                            </div>
                             <div class="column">
                                 <%= link_to '#' do %>
                                     <i class="icon big edit outline"></i>
                                     <p>Đổi tên</p>
                                 <% end %>
                             </div>
-                            <div class="column">
-                                <%= link_to '#' do %>
-                                    <i class="icon big exchange outline"></i>
-                                    <p>Di chuyển</p>
-                                <% end %>
-                            </div>
+                            <% if shared_with_me_page %>
+                                <div class="column">
+                                    <%= link_to folder, method: :delete, data: {confirm: 'Bạn không muốn được share folder này nữa ?'} do %>
+                                        <i class="icon big trash outline"></i>
+                                        <p>Không nhận chia sẻ folder</p>
+                                    <% end %>
+                                </div>
+                                <div class="column">
+                                    <%= link_to '#' do %>
+                                        <i class="icon big exchange outline"></i>
+                                        <p>Shortcut => my drive.</p>
+                                    <% end %>
+                                </div>
+                                <div class="column">
+                                    <%= link_to '#' do %>
+                                        <i class="icon big level down outline"></i>
+                                        <p>Clone => my drive.</p>
+                                    <% end %>
+                                </div>
+                            <% else %>
+                                <div class="column">
+                                    <%= link_to folder, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa folder này ?'} do %>
+                                        <i class="icon big trash outline"></i>
+                                        <p>Xóa folder</p>
+                                    <% end %>
+                                </div>
+                                <div class="column">
+                                    <%= link_to '#' do %>
+                                        <i class="icon big exchange outline"></i>
+                                        <p>Di chuyển</p>
+                                    <% end %>
+                                </div>
+                            <% end %>
                             <div class="column">
                                 <%= link_to folder_share_authorities_path(id: folder.id), remote: true do %>
                                     <i class="icon big slideshare outline"></i>
