@@ -16,4 +16,8 @@ $(document).ready(function() {
         window.location = link;
     });
 
+    $(document).on("ajax:error", ".detect-ajax-error", function(e, xhr, status, error) {
+        alert('Lỗi kết nối, vui lòng thử lại sau!');
+    });
+
 });

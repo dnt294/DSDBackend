@@ -21,19 +21,19 @@
                 <td><%= authority.user.username %></td>
                 <td><%= authority.user.email %></td>
                 <td class="ui center aligned">
-                    <%= link_to aut_params(authority.can_create?), folder_share_authority_path(authority, can_create: !authority.can_create?), method: :put, remote: true %>
+                    <%= link_to aut_params(authority.can_create?), folder_share_authority_path(authority, can_create: !authority.can_create?), method: :put, remote: true, class: 'detect-ajax-error' %>
                 </td>
                 <td class="ui center aligned">
-                    <%= link_to aut_params(authority.can_view?), folder_share_authority_path(authority, can_view: !authority.can_view?), method: :put, remote: true %>
+                    <%= link_to aut_params(authority.can_view?), folder_share_authority_path(authority, can_view: !authority.can_view?), method: :put, remote: true, class: 'detect-ajax-error' %>
                 </td>
                 <td class="ui center aligned">
-                    <%= link_to aut_params(authority.can_rename?), folder_share_authority_path(authority, can_rename: !authority.can_rename?), method: :put, remote: true %>
+                    <%= link_to aut_params(authority.can_rename?), folder_share_authority_path(authority, can_rename: !authority.can_rename?), method: :put, remote: true, class: 'detect-ajax-error' %>
                 </td>
                 <td class="ui center aligned">
                     <%= link_to aut_params(authority.can_move?), folder_share_authority_path(authority, can_move: !authority.can_move?), method: :put, remote: true %>
                 </td>
                 <td class="ui center aligned">
-                    <%= link_to aut_params(authority.can_destroy?), folder_share_authority_path(authority, can_destroy: !authority.can_destroy?), method: :put, remote: true %>
+                    <%= link_to aut_params(authority.can_destroy?), folder_share_authority_path(authority, can_destroy: !authority.can_destroy?), method: :put, remote: true, class: 'detect-ajax-error' %>
                 </td>
                 <td class="ui center aligned">
                     <div class="ui fitted disabled checkbox">
