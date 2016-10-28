@@ -1,0 +1,9 @@
+<%= form_for up_file do |f| %>
+    <div class="ui form">
+        <div class="field">
+            <label>Nhập tên mới cho file</label>
+            <%= f.text_field :file_name, value: up_file.file_name %>
+        </div>
+        <%= f.submit class: 'ui blue button' %>
+    </div>
+<% end %>

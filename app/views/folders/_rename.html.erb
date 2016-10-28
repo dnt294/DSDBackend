@@ -1,0 +1,9 @@
+<%= form_for folder do |f| %>
+    <div class="ui form">
+        <div class="field">
+            <label>Nhập tên mới cho folder</label>
+            <%= f.text_field :name, value: folder.name %>
+        </div>
+        <%= f.submit class: 'ui blue button' %>
+    </div>
+<% end %>

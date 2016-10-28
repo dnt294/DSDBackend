@@ -2,7 +2,7 @@ class FoldersController < ApplicationController
 
     include ApplicationHelper
 
-    before_action :set_folder, only: [:show, :edit, :update, :destroy]
+    before_action :set_folder, only: [:show, :edit, :rename, :get_move, :move, :update, :destroy]
     before_action :authenticate_user!
 
     # GET /folders
@@ -48,10 +48,10 @@ class FoldersController < ApplicationController
     # PATCH/PUT /folders/1.json
     def update
         respond_to do |format|
-            if @folder.update(folder_params)
-                format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }
+            if @folder.update(folder_params)                
+                format.html { redirect_to current_folder, notice: 'Folder was successfully updated.' }
             else
-                format.html { render :edit }
+                format.html { redirect_to current_folder, notice: 'Folder chưa đổi được tên.' }
             end
         end
     end
@@ -63,10 +63,28 @@ class FoldersController < ApplicationController
         redirect_to current_folder
     end
 
-
+    # GET /folders/shared_with_me
     def shared_with_me
        @folders = Folder.shared_with current_user
        @up_files = UpFile.shared_with current_user
+    end
+
+    # GET /folders/1/rename
+    def rename        
+    end
+
+    # GET /folders/1/move
+    def get_move
+        @folders_tree = Folder.root_folder_of_user(current_user).subtree.arrange
+    end
+
+    def move
+        @folder.parent_id = params[:new_parent_id]
+        if @folder.save
+            redirect_to current_folder
+        else
+            redirect_to current_folder
+        end
     end
 
     private

@@ -23,7 +23,7 @@
                     <%= folder.creator.username %>
                 </td>
                 <td class="full-row-clickable" data-href="<%= folder_path(folder) %>">
-                    <%= folder.updated_at %>
+                    <%= time_ago_in_words folder.updated_at %>
                 </td>
                 <td>
                     <div class="popupable">
@@ -32,7 +32,7 @@
                     <div class="ui popup right center transition">
                         <div class="ui one column divided center aligned grid">
                             <div class="column">
-                                <%= link_to '#' do %>
+                                <%= link_to rename_folder_path(folder), remote: true do %>
                                     <i class="icon big edit outline"></i>
                                     <p>Đổi tên</p>
                                 <% end %>
@@ -64,7 +64,7 @@
                                     <% end %>
                                 </div>
                                 <div class="column">
-                                    <%= link_to '#' do %>
+                                    <%= link_to get_move_folder_path(folder), remote: true do %>
                                         <i class="icon big exchange outline"></i>
                                         <p>Di chuyển</p>
                                     <% end %>

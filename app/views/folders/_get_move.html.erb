@@ -1,0 +1,22 @@
+<% def draw_tree(node) %>
+<% node.each do |key, value| %>
+    <div class="item">
+        <i class="folder icon"></i>
+        <div class="content">
+            <div class="header">
+                <%= link_to key.name, move_folder_path(id: @folder.id, new_parent_id: key.id), method: :post  %>
+            </div>
+            <div class="content">Lần chỉnh sửa cuối: <%= time_ago_in_words key.updated_at %></div>
+        </div>
+        <% if !value.nil? %>
+            <div class="ui list">
+                <% draw_tree(value) %>
+            </div>
+        <% end %>
+    </div>
+<% end %>
+<% end %>
+<%# ^ helper tag %>
+<div class="ui list">
+    <% draw_tree @folders_tree %>
+</div>

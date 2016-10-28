@@ -19,14 +19,15 @@ class UpFile < ApplicationRecord
 
     scope :shared_with, -> (user) { user.shared_up_files.merge(UpFileShareAuthority.directed) }
 
+
     ################################################
 
     before_create :create_chat_room
-    before_save :update_link_attributes
+    before_create :update_link_attributes
 
     TYPES = %W(mp4 mp3 pdf)
     STATUS = %W(ready uploading copying)
-
+    
     def check_type type        
         
         if !self.file_type.nil?
