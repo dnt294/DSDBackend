@@ -31,6 +31,11 @@ class FolderShareAuthoritiesController < ApplicationController
         @folder_share_authority.user = @user
 
         if @folder_share_authority.save
+
+            # share tất cả các folder và file con trong thư mục này
+            @folder = @folder_share_authority.folder
+            share_all_desendants @folder, @user
+            # ^^
             respond_to do |format|
                 format.js {
                     @folder_share_authorities = FolderShareAuthority.of_folder(@folder_share_authority.folder_id).includes(:user)
@@ -90,14 +95,14 @@ class FolderShareAuthoritiesController < ApplicationController
         end
 
     end
-    
+
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_folder_share_authority
         @folder_share_authority = FolderShareAuthority.find(params[:id])
     end
 
-    def update_rights_for_item item        
+    def update_rights_for_item item
         if params.has_key?(:can_create)
             item.can_create = params[:can_create]
         elsif params.has_key?(:can_view)
@@ -108,6 +113,24 @@ class FolderShareAuthoritiesController < ApplicationController
             item.can_move = params[:can_move]
         elsif params.has_key?(:can_destroy)
             item.can_destroy = params[:can_destroy]
+        end
+    end
+
+    def share_all_desendants folder, input_user
+        un_shared_folder_yet = folder.descendants.where.not(id: input_user.shared_folder_ids)
+
+        un_shared_file_yet =  un_shared_folder_yet.map {
+            |f| f.up_files.where.not(uploader_id: input_user.id)
+        }
+        self_un_shared_file_yet = folder.up_files.where.not(uploader_id: input_user.id)
+        un_shared_folder_yet.each do |new_folder|
+            FolderShareAuthority.create(folder: new_folder, user: input_user)
+        end
+        un_shared_file_yet.each do |new_file|
+            UpFileShareAuthority.where(up_file: new_file.first, user: input_user).first_or_create
+        end
+        self_un_shared_file_yet.each do |new_file|
+            UpFileShareAuthority.where(up_file: new_file, user: input_user).first_or_create
         end
     end
 

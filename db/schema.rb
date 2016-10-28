@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20161025091038) do
     t.boolean  "direct_share", default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.index ["folder_id", "user_id"], name: "index_folder_share_authorities_on_folder_id_and_user_id", unique: true, using: :btree
     t.index ["folder_id"], name: "index_folder_share_authorities_on_folder_id", using: :btree
     t.index ["user_id"], name: "index_folder_share_authorities_on_user_id", using: :btree
   end
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(version: 20161025091038) do
     t.boolean  "direct_share", default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.index ["up_file_id", "user_id"], name: "index_up_file_share_authorities_on_up_file_id_and_user_id", unique: true, using: :btree
     t.index ["up_file_id"], name: "index_up_file_share_authorities_on_up_file_id", using: :btree
     t.index ["user_id"], name: "index_up_file_share_authorities_on_user_id", using: :btree
   end
@@ -88,6 +90,7 @@ ActiveRecord::Schema.define(version: 20161025091038) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["folder_id"], name: "index_up_file_shortcuts_on_folder_id", using: :btree
+    t.index ["up_file_id", "folder_id"], name: "index_up_file_shortcuts_on_up_file_id_and_folder_id", unique: true, using: :btree
     t.index ["up_file_id"], name: "index_up_file_shortcuts_on_up_file_id", using: :btree
   end
 
