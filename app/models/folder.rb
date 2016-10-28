@@ -40,5 +40,13 @@ class Folder < ApplicationRecord
         true
     end
 
+    def is_directed_shared_with user
+        !FolderShareAuthority.directed.where(folder_id: self.id, user_id: user.id).empty?
+    end
+
+    def is_shared_with user
+        shared_users.include? user
+    end
+
 
 end
