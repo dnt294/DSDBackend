@@ -38,15 +38,21 @@
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to folder, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa folder này ?'} do %>
+                                <%= link_to folder, method: :delete, data: {confirm: 'Bạn không muốn được share folder này nữa ?'} do %>
                                     <i class="icon big trash outline"></i>
-                                    <p>Xóa folder</p>
+                                    <p>Dừng nhận chia sẻ folder.</p>
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to get_move_folder_path(folder), remote: true do %>
+                                <%= link_to  clone_folder_shortcuts_path(folder_id: folder.id ) do %>
                                     <i class="icon big exchange outline"></i>
-                                    <p>Di chuyển</p>
+                                    <p>Tạo shortcut trong Drive.</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to '#' do %>
+                                    <i class="icon big level down outline"></i>
+                                    <p>Clone => my drive.</p>
                                 <% end %>
                             </div>
                             <div class="column">

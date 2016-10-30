@@ -5,6 +5,12 @@
                 <div class="ui header">Tên</div>
             </td>
             <td>
+                <div class="ui header">Loại</div>
+            </td>
+            <td>
+                <div class="ui header">Kích thước</div>
+            </td>
+            <td>
                 <div class="ui header">Người tạo</div>
             </td>
             <td>
@@ -14,16 +20,22 @@
         </tr>
     </thead>
     <tbody>
-        <% folders.each do |folder| %>
+        <% up_files.each do |up_file| %>
             <tr>
-                <td class="full-row-clickable" data-href="<%= folder_path(folder) %>">
-                    <%= folder.name %>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= up_file.file_name %>
                 </td>
-                <td class="full-row-clickable" data-href="<%= folder_path(folder) %>">
-                    <%= folder.creator.username %>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= up_file.file_type %>
                 </td>
-                <td class="full-row-clickable" data-href="<%= folder_path(folder) %>">
-                    <%= time_ago_in_words folder.updated_at %>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= number_to_human_size up_file.file_size %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= up_file.uploader.username %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= up_file_path(up_file) %>">
+                    <%= time_ago_in_words up_file.updated_at %>
                 </td>
                 <td>
                     <div class="popupable">
@@ -32,25 +44,25 @@
                     <div class="ui popup right center transition">
                         <div class="ui one column divided center aligned grid">
                             <div class="column">
-                                <%= link_to rename_folder_path(folder), remote: true do %>
+                                <%= link_to rename_up_file_path(up_file), remote: true do %>
                                     <i class="icon big edit outline"></i>
                                     <p>Đổi tên</p>
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to folder, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa folder này ?'} do %>
+                                <%= link_to clone_up_file_shortcuts_path(up_file_id: up_file.id) do %>
+                                    <i class="icon big copy outline"></i>
+                                    <p>Tạo shortcut trong Drive</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to up_file, method: :delete, data: {confirm: 'Bạn không muốn được chia sẻ file này nữa ?'} do %>
                                     <i class="icon big trash outline"></i>
-                                    <p>Xóa folder</p>
+                                    <p>Dừng nhận chia sẻ file này</p>
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to get_move_folder_path(folder), remote: true do %>
-                                    <i class="icon big exchange outline"></i>
-                                    <p>Di chuyển</p>
-                                <% end %>
-                            </div>
-                            <div class="column">
-                                <%= link_to folder_share_authorities_path(id: folder.id), remote: true do %>
+                                <%= link_to up_file_share_authorities_path(id: up_file.id), remote: true do %>
                                     <i class="icon big slideshare outline"></i>
                                     <p>Chia sẻ</p>
                                 <% end %>

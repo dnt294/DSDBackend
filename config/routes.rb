@@ -4,17 +4,26 @@ Rails.application.routes.draw do
 
     resources :up_file_share_authorities
     resources :folder_share_authorities
-    resources :up_file_shortcuts
-    resources :up_files do
+
+    resources :up_file_shortcuts do
+        collection do
+            get :clone
+        end
         member do
-            get 'rename'
             get 'get_move'
             post 'move'
         end
     end
 
-    resources :comments
+    resources :up_files do
+        member do
+            get 'rename'
+        end
+    end
+
+    resources :folder_shortcuts, only: [ :clone ]
     
+
     resources :folders do
         collection do
             get 'shared_with_me'
@@ -25,7 +34,8 @@ Rails.application.routes.draw do
             post 'move'
         end
     end
-    
+
+    resources :comments
 
     devise_for :users
 

@@ -48,10 +48,10 @@ class FoldersController < ApplicationController
     # PATCH/PUT /folders/1.json
     def update
         respond_to do |format|
-            if @folder.update(folder_params)                
-                format.html { redirect_to current_folder, notice: 'Folder was successfully updated.' }
+            if @folder.update(folder_params)
+                format.html { redirect_to :back, notice: 'Folder was successfully updated.' }
             else
-                format.html { redirect_to current_folder, notice: 'Folder chưa đổi được tên.' }
+                format.html { redirect_to :back, notice: 'Folder chưa đổi được tên.' }
             end
         end
     end
@@ -59,18 +59,26 @@ class FoldersController < ApplicationController
     # DELETE /folders/1
     # DELETE /folders/1.json
     def destroy
+        # Khi xóa 1 folder:
+        # - xóa hết các file trong cây con đó (directedshare == true).
+        UpFile.joins(:up_file_shortcuts).where(up_file_shortcuts: {shortcut: false, folder_id: @folder.subtree_ids}).destroy_all
+        # - xóa hết các file shortcut tới cây con của folder (các direct shorcut tự động bị xóa khi xóa file trong câu trên)  .        
+        UpFileShortcut.un_directed.where(folder_id:  @folder.subtree_ids).destroy_all
+        # - các folder của cây con tự động bị xóa -> các shortcut của folder cũng tự động bị xóa.       
+        
+        # - xóa folder
         @folder.destroy
         redirect_to current_folder
     end
 
     # GET /folders/shared_with_me
     def shared_with_me
-       @folders = Folder.shared_with current_user
-       @up_files = UpFile.shared_with current_user
+        @folders = Folder.shared_with current_user
+        @up_files = UpFile.shared_with current_user
     end
 
     # GET /folders/1/rename
-    def rename        
+    def rename
     end
 
     # GET /folders/1/move
@@ -100,7 +108,7 @@ class FoldersController < ApplicationController
 
     def set_current_children
         @folders = Folder.children_of current_folder
-        @up_files = current_folder.up_files
+        @up_file_shortcuts = current_folder.up_file_shortcuts.includes(:up_file)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

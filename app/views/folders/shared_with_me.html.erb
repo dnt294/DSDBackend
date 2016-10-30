@@ -15,11 +15,11 @@
             </div>
             <div class="ui horizontal divider">Folder</div>
             <div class="row list folders">
-                <%= render 'folders_list', folders: @folders %>
+                <%= render 'swm_folders_list', folders: @folders %>
             </div>
             <div class="ui horizontal divider">UpFile</div>
             <div class="row list up_files">
-                <%= render 'up_files/up_files_list', up_files: @up_files %>
+                <%= render 'up_files/swm_up_files_list', up_files: @up_files %>
             </div>
         </div>        
     </div>
@@ -31,4 +31,8 @@
     </div>    
     <div class="content">
     </div>
+</div>
+<div class="ui small modal rename">
+    <div class="header">Đặt lại tên</div>
+    <div class="content"></div>
 </div>
