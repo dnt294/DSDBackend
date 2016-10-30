@@ -56,7 +56,7 @@
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to up_file, method: :delete, data: {confirm: 'Bạn không muốn được chia sẻ file này nữa ?'} do %>
+                                <%= link_to self_destroy_up_file_authority_path( up_file_id: up_file.id), method: :delete, data: {confirm: 'Bạn không muốn được chia sẻ file này nữa ?'} do %>
                                     <i class="icon big trash outline"></i>
                                     <p>Dừng nhận chia sẻ file này</p>
                                 <% end %>

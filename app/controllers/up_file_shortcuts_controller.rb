@@ -35,7 +35,7 @@ class UpFileShortcutsController < ApplicationController
     # GET /clone_up_file_shortcuts/1
     def clone
         @up_file_to_clone = UpFile.find(params[:up_file_id])
-        @new_shortcut = UpFileShortcut.new(up_file: @up_file_to_clone,  folder: Folder.root_folder_of_user(current_user))
+        @new_shortcut = UpFileShortcut.new(up_file: @up_file_to_clone,  folder: Folder.root_folder_of_user(current_user), shortcut: true)
         begin
             @new_shortcut.save
             redirect_to shared_with_me_folders_path
@@ -68,7 +68,7 @@ class UpFileShortcutsController < ApplicationController
 
     # DELETE /up_file_shortcuts/1
     def destroy
-        if @up_file_shortcut.directed
+        unless @up_file_shortcut.shortcut?
             @up_file_shortcut.up_file.destroy
         end
         @up_file_shortcut.destroy

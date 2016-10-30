@@ -4,7 +4,7 @@ class UpFileShareAuthoritiesController < ApplicationController
     # GET /up_file_share_authorities
     def index
         respond_to do |format|
-            format.js {
+            format.js {                
                 @up_file_share_authorities = UpFileShareAuthority.of_up_file(params[:id]).includes(:user)
                 @up_file_id = params[:id]
             }
@@ -28,29 +28,23 @@ class UpFileShareAuthoritiesController < ApplicationController
     def create
         @up_file_share_authority = UpFileShareAuthority.new(up_file_share_authority_params)
         @user = User.find_by(email: params[:user_email])
-        @up_file_share_authority.user = @user
-
-        if @up_file_share_authority.save
-            respond_to do |format|
-                format.js {
-                    @up_file_share_authorities = UpFileShareAuthority.of_up_file(@up_file_share_authority.up_file_id).includes(:user)
-                }
-                format.html {
-                    redirect_to @up_file_share_authority, notice: 'Up file share authority was successfully created.'
-                }
-            end
-
+        if @user.nil?
+            @return_message = 'Không tìm thấy email này.'
         else
-            respond_to do |format|
+            @up_file_share_authority.user = @user
+            begin
+                @up_file_share_authority.save
+                @return_message = "Chia sẻ với #{@user.username}"
+            rescue ActiveRecord::ActiveRecordError
+                @return_message = "Có lỗi xảy ra ?"
+            end            
+        end       
+
+       respond_to do |format|
                 format.js {
                     @up_file_share_authorities = UpFileShareAuthority.of_up_file(@up_file_share_authority.up_file_id).includes(:user)
-                }
-                format.html {
-                    render :new
-                }
+                }                
             end
-
-        end
     end
 
     # PATCH/PUT /up_file_share_authorities/1
@@ -82,14 +76,42 @@ class UpFileShareAuthoritiesController < ApplicationController
     def destroy
 
         @up_file_id = @up_file_share_authority.up_file_id
-        @up_file_share_authority.destroy
-        respond_to do |format|
-            format.js {
-                @up_file_share_authorities = UpFileShareAuthority.of_up_file(@up_file_id).includes(:user)
-            }
-            format.html {
-                redirect_to up_file_share_authorities_url, notice: 'File share authority was successfully destroyed.'
-            }
+        begin
+            @up_file_share_authority.destroy
+            delete_all_shortcuts_for_up_file(@up_file_id, current_user)
+            respond_to do |format|
+                format.js {
+                    @up_file_share_authorities = UpFileShareAuthority.of_up_file(@up_file_id).includes(:user)
+                }
+                format.html {
+                    redirect_to up_file_share_authorities_url, notice: 'File share authority was successfully destroyed.'
+                }
+            end
+        rescue ActiveRecord::ActiveRecordError
+            respond_to do |format|
+                format.js {
+                    @up_file_share_authorities = UpFileShareAuthority.of_up_file(@up_file_id).includes(:user)
+                }
+                format.html {
+                    redirect_to up_file_share_authorities_url, notice: 'File share authority was successfully destroyed.'
+                }
+            end
+        end
+
+    end
+
+    # Khi 1 người tự xóa chia sẻ đó trong "share with me" page.
+    def self_destroy
+        # tìm file muốn dừng chia sẻ
+        @up_file_id = params[:up_file_id]
+        @up_file_share_authority = UpFileShareAuthority.find_by(up_file_id: @up_file_id, user: current_user)
+        # xóa hết các shortcut tới folder này.
+        begin
+            @up_file_share_authority.destroy
+            delete_all_shortcuts_for_up_file(@up_file_id, current_user)
+            redirect_to shared_with_me_folders_path
+        rescue ActiveRecord::ActiveRecordError
+            redirect_to shared_with_me_folders_path
         end
     end
 
@@ -99,7 +121,11 @@ class UpFileShareAuthoritiesController < ApplicationController
         @up_file_share_authority = UpFileShareAuthority.find(params[:id])
     end
 
-    def update_rights_for_item item        
+    def delete_all_shortcuts_for_up_file(up_file_id, user)
+        UpFileShortcut.where(up_file_id: up_file_id,  folder_id: user.folder_ids).delete_all
+    end
+
+    def update_rights_for_item item
         if params.has_key?(:can_view)
             item.can_view = params[:can_view]
         elsif params.has_key?(:can_rename)

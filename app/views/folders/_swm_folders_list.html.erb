@@ -38,7 +38,7 @@
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to folder, method: :delete, data: {confirm: 'Bạn không muốn được share folder này nữa ?'} do %>
+                                <%= link_to self_destroy_folder_authority_path( folder_id: folder.id), method: :delete, data: {confirm: 'Bạn không muốn được share folder này nữa ?'} do %>
                                     <i class="icon big trash outline"></i>
                                     <p>Dừng nhận chia sẻ folder.</p>
                                 <% end %>

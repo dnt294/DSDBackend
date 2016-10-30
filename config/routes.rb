@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :up_file_share_authorities
     resources :folder_share_authorities
 
+    delete 'self_destroy_folder_authority', to: 'folder_share_authorities#self_destroy', as: :self_destroy_folder_authority
+    delete 'self_destroy_up_file_authority', to: 'up_file_share_authorities#self_destroy', as: :self_destroy_up_file_authority
+
     resources :up_file_shortcuts do
         collection do
             get :clone

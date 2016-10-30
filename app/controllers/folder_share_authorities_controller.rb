@@ -4,7 +4,7 @@ class FolderShareAuthoritiesController < ApplicationController
     # GET /folder_share_authorities
     def index
         respond_to do |format|
-            format.js {
+            format.js {                
                 @folder_share_authorities = FolderShareAuthority.of_folder(params[:id]).includes(:user)
                 @folder_id = params[:id]
             }
@@ -28,33 +28,23 @@ class FolderShareAuthoritiesController < ApplicationController
     def create
         @folder_share_authority = FolderShareAuthority.new(folder_share_authority_params)
         @user = User.find_by(email: params[:user_email])
-        @folder_share_authority.user = @user
-
-        if @folder_share_authority.save
-
-            # share tất cả các folder và file con trong thư mục này
-            @folder = @folder_share_authority.folder
-            share_all_desendants @folder, @user
-            # ^^
-            respond_to do |format|
-                format.js {
-                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_share_authority.folder_id).includes(:user)
-                }
-                format.html {
-                    redirect_to @folder_share_authority, notice: 'Folder share authority was successfully created.'
-                }
-            end
+        if @user.nil?
+            @return_message = 'Không tìm thấy email này.'
         else
-            respond_to do |format|
-                format.js {
-                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_share_authority.folder_id).includes(:user)
-                }
-                format.html {
-                    render :new
-                }
+            @folder_share_authority.user = @user
+            begin
+                @folder_share_authority.save
+                @return_message = "Chia sẻ với #{@user.username}"
+            rescue ActiveRecord::ActiveRecordError
+                @return_message = "Có lỗi xảy ra ?"
             end
         end
 
+        respond_to do |format|
+                format.js {
+                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_share_authority.folder_id).includes(:user)
+                }                
+            end
     end
 
     # PATCH/PUT /folder_share_authorities/1
@@ -83,23 +73,53 @@ class FolderShareAuthoritiesController < ApplicationController
 
     # DELETE /folder_share_authorities/1
     def destroy
+        # khi xóa chia sẻ -> xóa luôn cả các shortcut của chia sẻ đó.
         @folder_id = @folder_share_authority.folder_id
-        @folder_share_authority.destroy
-        respond_to do |format|
-            format.js {
-                @folder_share_authorities = FolderShareAuthority.of_folder(@folder_id).includes(:user)
-            }
-            format.html {
-                redirect_to folder_share_authorities_url, notice: 'Folder share authority was successfully destroyed.'
-            }
+        begin
+            @folder_share_authority.destroy
+            delete_all_shortcuts_for_folder(@folder_id, current_user)
+            respond_to do |format|
+                format.js {
+                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_id).includes(:user)
+                }
+                format.html {
+                    redirect_to folder_share_authorities_url, notice: 'Folder share authority was successfully destroyed.'
+                }
+            end
+        rescue ActiveRecord::ActiveRecordError
+            respond_to do |format|
+                format.js {
+                    @folder_share_authorities = FolderShareAuthority.of_folder(@folder_id).includes(:user)
+                }
+                format.html {
+                    redirect_to folder_share_authorities_url, notice: 'Folder share authority was successfully destroyed.'
+                }
+            end
         end
 
+    end
+
+    # Khi 1 người tự xóa chia sẻ đó trong "share with me" page.
+    def self_destroy
+        @folder_id = params[:folder_id]
+        @folder_share_authority = FolderShareAuthority.find_by(folder_id: @folder_id, user: current_user)
+        begin
+            @folder_share_authority.destroy
+            delete_all_shortcuts_for_folder(@folder_id, current_user)
+            redirect_to shared_with_me_folders_path
+        rescue ActiveRecord::ActiveRecordError
+            redirect_to shared_with_me_folders_path
+        end
     end
 
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_folder_share_authority
         @folder_share_authority = FolderShareAuthority.find(params[:id])
+    end
+
+    def delete_all_shortcuts_for_folder(folder_id, user)
+        FolderShortcut.where(shortcut_id: folder_id, destination_id: user.folder_ids).delete_all
     end
 
     def update_rights_for_item item
