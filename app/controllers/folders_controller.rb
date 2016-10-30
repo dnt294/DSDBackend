@@ -108,6 +108,7 @@ class FoldersController < ApplicationController
 
     def set_current_children
         @folders = Folder.children_of current_folder
+        @folder_shortcuts = current_folder.shortcut_relationships.includes(:shortcut)
         @up_file_shortcuts = current_folder.up_file_shortcuts.includes(:up_file)
     end
 

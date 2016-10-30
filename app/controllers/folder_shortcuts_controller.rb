@@ -2,6 +2,8 @@ class FolderShortcutsController < ApplicationController
 
     include ApplicationHelper
 
+    before_action :set_folder_shortcut, only: [:get_move, :move, :destroy]
+
     # GET /clone_folder_shortcuts/1
     def clone
         @folder_to_clone = Folder.find(params[:folder_id])
@@ -14,6 +16,29 @@ class FolderShortcutsController < ApplicationController
         end
     end
 
+    def get_move
+        @folders_tree = Folder.root_folder_of_user(current_user).subtree.arrange
+    end
 
+    def move
+        @folder_shortcut.destination_id = params[:new_parent_id]
+        if @folder_shortcut.save
+            redirect_to current_folder
+        else 
+            redirect_to current_folder
+        end
+    end
+
+    # DELETE /folder_shortcuts/1
+    def destroy
+        @folder_shortcut.destroy
+        redirect_to current_folder, notice: 'Đã xóa folder.'
+    end
+
+    private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_folder_shortcut
+        @folder_shortcut = FolderShortcut.find(params[:id])
+    end
 
 end

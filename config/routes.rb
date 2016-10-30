@@ -21,7 +21,15 @@ Rails.application.routes.draw do
         end
     end
 
-    resources :folder_shortcuts, only: [ :clone ]
+    resources :folder_shortcuts, only: [:destroy] do
+        collection do
+            get :clone
+        end
+        member do
+            get 'get_move'
+            post 'move'
+        end
+    end
     
 
     resources :folders do

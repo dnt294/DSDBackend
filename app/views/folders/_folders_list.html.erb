@@ -14,9 +14,11 @@
         </tr>
     </thead>
     <tbody>
+        <%# -------------------------- RENDER CHILDRENS -------------------  %>
         <% folders.each do |folder| %>
             <tr>
                 <td class="full-row-clickable" data-href="<%= folder_path(folder) %>">
+                    <i class="ui folder icon"></i>
                     <%= folder.name %>
                 </td>
                 <td class="full-row-clickable" data-href="<%= folder_path(folder) %>">
@@ -60,5 +62,54 @@
                 </td>
             </tr>
         <% end %>
+        <%# -------------------------- RENDER SHORTCUTS -------------------  %>
+        <% folder_shortcuts.each do |shortcut_rela| %>
+            <tr>
+                <td class="full-row-clickable" data-href="<%= folder_path(shortcut_rela.shortcut) %>">
+                    <i class="ui folder outline icon"></i>
+                    <%= shortcut_rela.shortcut.name %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= folder_path(shortcut_rela.shortcut) %>">
+                    <%= shortcut_rela.shortcut.creator.username %>
+                </td>
+                <td class="full-row-clickable" data-href="<%= folder_path(shortcut_rela.shortcut) %>">
+                    <%= time_ago_in_words shortcut_rela.shortcut.updated_at %>
+                </td>
+                <td>
+                    <div class="popupable">
+                        <i class="icon setting outline"></i>
+                    </div>
+                    <div class="ui popup right center transition">
+                        <div class="ui one column divided center aligned grid">
+                            <div class="column">
+                                <%= link_to rename_folder_path(shortcut_rela.shortcut), remote: true do %>
+                                    <i class="icon big edit outline"></i>
+                                    <p>Đổi tên</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to shortcut_rela, method: :delete, data: {confirm: 'Bạn muốn xóa folder này ?'} do %>
+                                    <i class="icon big trash outline"></i>
+                                    <p>Xóa folder</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to get_move_folder_shortcut_path(shortcut_rela), remote: true do %>
+                                    <i class="icon big exchange outline"></i>
+                                    <p>Di chuyển</p>
+                                <% end %>
+                            </div>
+                            <div class="column">
+                                <%= link_to folder_share_authorities_path(id: shortcut_rela.shortcut.id), remote: true do %>
+                                    <i class="icon big slideshare outline"></i>
+                                    <p>Chia sẻ</p>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        <% end %>
+
     </tbody>
 </table>
