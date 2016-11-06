@@ -1,7 +1,13 @@
 class UpFileShareAuthoritySerializer < ActiveModel::Serializer
+    
+    attributes :id, :can_create, :can_view, :can_update, :can_destroy, :user_name, :user_email
 
-    has_one :up_file
-    has_one :user
+    def user_name
+    	object.user.username
+    end
 
-    attributes :id, :can_create, :can_view, :can_update, :can_destroy
+    def user_email
+    	object.user.email
+    end
+
 end
