@@ -1,12 +1,10 @@
-class Api::TokensController < ApplicationController
+class Api::TokensController < Api::ApiController
 	
 	#skip_before_filter :authenticate_user!
 
 	respond_to :json
 
 	def create
-	
-
 		username = params[:username]
 		password = params[:password]
 

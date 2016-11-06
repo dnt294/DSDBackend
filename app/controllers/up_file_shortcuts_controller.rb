@@ -44,15 +44,6 @@ class UpFileShortcutsController < ApplicationController
         end
     end
 
-    # PATCH/PUT /up_file_shortcuts/1
-    def update
-        if @up_file_shortcut.update(up_file_shortcut_params)
-            redirect_to @up_file_shortcut, notice: 'Up file shortcut was successfully updated.'
-        else
-            render :edit
-        end
-    end
-
     def get_move
         @folders_tree = Folder.root_folder_of_user(current_user).subtree.arrange
     end

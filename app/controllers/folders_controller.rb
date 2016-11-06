@@ -62,10 +62,10 @@ class FoldersController < ApplicationController
         # Khi xóa 1 folder:
         # - xóa hết các file trong cây con đó (directedshare == true).
         UpFile.joins(:up_file_shortcuts).where(up_file_shortcuts: {shortcut: false, folder_id: @folder.subtree_ids}).destroy_all
-        # - xóa hết các file shortcut tới cây con của folder (các direct shorcut tự động bị xóa khi xóa file trong câu trên)  .        
+        # - xóa hết các file shortcut tới cây con của folder (các direct shorcut tự động bị xóa khi xóa file trong câu trên)  .
         UpFileShortcut.un_directed.where(folder_id:  @folder.subtree_ids).destroy_all
-        # - các folder của cây con tự động bị xóa -> các shortcut của folder cũng tự động bị xóa.       
-        
+        # - các folder của cây con tự động bị xóa -> các shortcut của folder cũng tự động bị xóa.
+
         # - xóa folder
         @folder.destroy
         redirect_to current_folder

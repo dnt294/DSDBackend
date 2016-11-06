@@ -3,4 +3,7 @@ class CommentsChannel < ApplicationCable::Channel
         stream_from 'comments'
     end
 
+    def unsubcribed
+
+    end
 end

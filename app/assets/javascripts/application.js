@@ -7,8 +7,8 @@
 //= require cocoon
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-//= require_tree ./channels
 //= require_tree .
+//= require_tree ./channels
 
 $(document).ready(function() {
     $(document).on("click", ".full-row-clickable", function() {

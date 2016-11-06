@@ -33,7 +33,7 @@ Rails.application.routes.draw do
             post 'move'
         end
     end
-    
+
 
     resources :folders do
         collection do
@@ -50,10 +50,51 @@ Rails.application.routes.draw do
 
     devise_for :users
 
+    ################################ Api ##################################
+
     namespace :api do
         resources :tokens, only: [:create, :destroy]
-        resources :folders, only: [:index, :show, :create, :update, :destroy]
+
+        resources :up_file_share_authorities, only: [:index, :create, :update, :destroy]
+        resources :folder_share_authorities, only: [:index, :create, :update, :destroy]
+
+        resources :up_file_shortcuts, only: [:destroy] do
+            collection do
+                get :clone
+            end
+            member do
+                get 'get_move'
+                post 'move'
+            end
+        end
+
+        resources :up_files, only: [:show, :update, :destroy]
+
+        resources :folder_shortcuts, only: [:destroy] do
+            collection do
+                get :clone
+            end
+            member do
+                get 'get_move'
+                post 'move'
+            end
+        end
+
+        resources :folders, only: [:index, :show, :create, :update, :destroy] do
+            collection do
+                get 'shared_with_me'
+            end
+            member do
+                get 'get_move'
+                post 'move'
+            end
+        end
+
+        resources :comments, only: [:create]
+
     end
+
+    ################################ Cable ##################################
 
     mount ActionCable.server => '/cable'
 end

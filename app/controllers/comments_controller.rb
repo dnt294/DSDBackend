@@ -27,12 +27,9 @@ class CommentsController < ApplicationController
         @comment = Comment.new(comment_params)
         @comment.user = current_user
         if @comment.save
-            ActionCable.server.broadcast 'comments',
-                comment: @comment.content,
-                user: @comment.user.username
-            head :ok
+            CommentsBroadcastJob.perform_later @comment
         else
-            render :new
+            
         end
     end
 

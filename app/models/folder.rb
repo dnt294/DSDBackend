@@ -20,7 +20,7 @@ class Folder < ApplicationRecord
     has_many :destination_relationships, foreign_key: :shortcut_id, class_name: 'FolderShortcut', dependent: :destroy
 
     has_many :shortcuts, through: :shortcut_relationships, source: :shortcut
-    has_many :destinations, through: :destination_relationships, source: :destionation
+    has_many :destinations, through: :destination_relationships, source: :destination
 
     accepts_nested_attributes_for :shortcut_relationships, allow_destroy: true
     accepts_nested_attributes_for :destination_relationships, allow_destroy: true

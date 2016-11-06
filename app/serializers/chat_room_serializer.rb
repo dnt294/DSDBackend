@@ -1,3 +1,7 @@
 class ChatRoomSerializer < ActiveModel::Serializer
-  attributes :id
+
+    has_many :comments
+    has_many :users, through: :comments
+    
+    attributes :id, :comments
 end
