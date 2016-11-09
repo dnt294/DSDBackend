@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/doabit/semantic-ui-sass.git
-  revision: 119c166f490682c40fe0274f7d3ccb86e384fa0a
+  revision: 0405e7002c7dc40915e8bf4f059f35585a9352eb
   specs:
-    semantic-ui-sass (2.2.4.0)
+    semantic-ui-sass (2.2.6.0)
       sass (>= 3.2)
 
 GEM
@@ -53,10 +53,10 @@ GEM
     after_commit_action (1.0.1)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-    ancestry (2.1.0)
+    ancestry (2.2.2)
       activerecord (>= 3.0.0)
     arel (7.1.4)
-    autoprefixer-rails (6.5.0.2)
+    autoprefixer-rails (6.5.2)
       execjs
     bcrypt (3.1.11)
     bootstrap-sass (3.3.7)
@@ -72,7 +72,7 @@ GEM
       mimemagic (>= 0.3.0)
     cocoon (1.2.9)
     concurrent-ruby (1.0.2)
-    counter_culture (0.2.2)
+    counter_culture (0.2.3)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       after_commit_action (~> 1.0.0)
@@ -106,10 +106,10 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.0.2)
-    jsonapi (0.1.1.beta5)
-      jsonapi-parser (= 0.1.1.beta2)
+    jsonapi (0.1.1.beta6)
+      jsonapi-parser (= 0.1.1.beta3)
       jsonapi-renderer (= 0.1.1.beta1)
-    jsonapi-parser (0.1.1.beta2)
+    jsonapi-parser (0.1.1.beta3)
     jsonapi-renderer (0.1.1.beta1)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -170,7 +170,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.3.0)
-    rb-fsevent (0.9.7)
+    rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
     redis (3.3.1)
@@ -233,11 +233,11 @@ GEM
     typescript-src (1.6.2.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.2)
+    uglifier (3.0.3)
       execjs (>= 0.3.0, < 3)
     warden (1.2.6)
       rack (>= 1.0)
-    web-console (3.3.1)
+    web-console (3.4.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       debug_inspector
@@ -286,4 +286,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.12.5
+   1.13.6
