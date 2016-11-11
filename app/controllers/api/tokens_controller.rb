@@ -26,7 +26,7 @@ class Api::TokensController < Api::ApiController
 		end
 
 		if @user.valid_password?(password)
-			render status: 200, json: {token: @user.authentication_token}
+			render status: 200, json: {token: @user.authentication_token, email: @user.email}
 			return
 		else
 			render status: 401, json: {message: 'Wrong password!'}
