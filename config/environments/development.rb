@@ -5,10 +5,10 @@ Rails.application.configure do
     # every request. This slows down response time but is perfect for development
     # since you don't have to restart the web server when you make code changes.
 
-    config.asset_host = 'http://192.168.1.101:3000'
+    config.asset_host = ENV["vb_address"]
 
     config.cache_classes = false
-    config.action_cable.url = "http://192.169.1.101:3000/cable"
+    config.action_cable.url = ENV["vb_address_cable"]
     config.action_cable.disable_request_forgery_protection = true
     config.web_console.whiny_requests = false
     # Do not eager load code on boot.
