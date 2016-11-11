@@ -21,13 +21,15 @@
 @import "bootstrap/mixins/grid";
 @import "bootstrap/grid";
 
+$global-padding-top: 55px;
+
 div.hidden {
-	display: none;
+    display: none;
 }
 
 .main-body {
-	padding-top: 55px;
-	padding-bottom: 20px;
+    padding-top: $global-padding-top;
+    padding-bottom: 20px;
 }
 
 .bottom-buffer {
@@ -35,25 +37,32 @@ div.hidden {
 }
 
 .padding-2-size {
-	padding-left: 20px;
-	padding-right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .padding-vertical {
-	padding-top: 15px;
-	padding-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .main-header {
-	background-color: #EDEDED !important;
+    background-color: #EDEDED !important;
 }
 
-.chat-zone {	
-	height: 80vh;
+.chat-zone {    
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.comment-box {	
-	height: 150px;
+.comment-box {  
+    height: 150px;    
+}
+
+.comment-list {    
+    overflow-y: scroll;
+    flex: 1;
 }
 
 /////////////////////////
@@ -66,28 +75,28 @@ div.hidden {
     display: none;
 }
 
-.welcome.segment {	
+.welcome.segment {  
     min-height: 100vh;
     padding: 1em 0em;
 
     .logo.item img {
-    	margin-right: 1em;
-	}
-	.ui.menu .ui.button {
-    	margin-left: 0.5em;
-	}
+        margin-right: 1em;
+    }
+    .ui.menu .ui.button {
+        margin-left: 0.5em;
+    }
 
-	h1.ui.header {
-	    margin-top: 3em;
-		margin-bottom: 0em;
-		font-size: 4em;
-		font-weight: normal;
-	}
+    h1.ui.header {
+        margin-top: 3em;
+        margin-bottom: 0em;
+        font-size: 4em;
+        font-weight: normal;
+    }
 
-	.item {
-    	font-size: 1.3em;
-    	font-weight: normal;
-	}
+    .item {
+        font-size: 1.3em;
+        font-weight: normal;
+    }
 }
 
 .ui.vertical.stripe {

@@ -69,13 +69,12 @@ class UpFile < ApplicationRecord
     end
 
     def file_type_s
-        TYPES.each do |type|
-            byebug
-            if self.file_type.includes?(type)
-                byebug
+        TYPES.each do |type|            
+            if self.file_type.includes?(type)                
                 return type
             end            
         end
     end
 
 end
+

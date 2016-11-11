@@ -1,13 +1,10 @@
-<div class="ui horizontal divider">Nhắn tin</div>
 <div class="comment-box">
 	<%= render 'comments/form', comment: @new_comment %>	
 </div>
-<div class="ui segment">
-    <div style="overflow-y: scroll; min-height: 400px">
-        <div id="comments">
+<div class="ui segment comment-list">
+    <div id="comments">
             <% if current_folder.chat_room.comments.any? %>
                 <%= render 'comments/comments', comments: @chat_room.comments_with_user %>
             <% end %>
         </div>
-    </div>
 </div>

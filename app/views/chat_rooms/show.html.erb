@@ -1,8 +1,0 @@
-<div style="overflow-y: scroll; height: 100%;">
-    <div id="comments">
-        <% if current_folder.messages.any? %>
-            <%= render 'comments/comments', comments: messages %>
-        <% end %>
-    </div>
-</div>
-<%= render 'comments/form', comment: new_comment %>
