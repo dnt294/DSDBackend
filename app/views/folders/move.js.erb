@@ -1,0 +1,9 @@
+<% unless @remote_error %>
+    $('.modal.move').modal('hide');
+    $('.row.list.folders').empty().append("<%= j render 'folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");    
+    dummyBindingPopup();
+    setToast('success', 'Đã di chuyển folder.');
+<% else %>
+    $('.modal.move').modal('hide');
+    setToast('warning', 'Có lỗi khi di chuyển folder.');
+<% end %>

@@ -5,7 +5,7 @@
             <i class="folder icon"></i>
             <div class="content">
                 <div class="header">
-                    <%= link_to key.name, move_folder_path(id: @folder.id, new_parent_id: key.id), method: :post  %>
+                    <%= link_to key.name, move_folder_path(id: @folder.id, new_parent_id: key.id), method: :post, remote: true  %>
                 </div>
                 <div class="content">Lần chỉnh sửa cuối: <%= time_ago_in_words key.updated_at %></div>
             </div>

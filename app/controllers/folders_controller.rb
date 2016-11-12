@@ -78,7 +78,7 @@ class FoldersController < ApplicationController
                     # - các folder của cây con tự động bị xóa -> các shortcut của folder cũng tự động bị xóa.
                     # - xóa folder
                     @folder.destroy
-                    
+
                     # => load lại cây thư mục
                     set_children_folders
                     set_children_shortcuts
@@ -107,10 +107,15 @@ class FoldersController < ApplicationController
 
     def move
         @folder.parent_id = params[:new_parent_id]
-        if @folder.save
-            redirect_to current_folder
-        else
-            redirect_to current_folder
+        respond_to do |format|
+            format.js {
+                if @folder.save
+                    set_children_folders
+                    set_children_shortcuts
+                else
+                    @remote_error = true
+                end
+            }
         end
     end
 

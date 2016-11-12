@@ -2,6 +2,7 @@
     $('.modal.new.folder').modal('hide');
     $('.row.list.folders').empty().append("<%= j render 'folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");    
     dummyBindingPopup();
+    setToast('success', 'Đã tạo folder.');
 <% else %>    
     $('.modal.new.folder').modal('hide');    
     setToast('warning', 'Cần có tên folder.');
