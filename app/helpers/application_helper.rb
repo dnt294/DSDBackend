@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+    def set_remote_message(type, message)
+        @remote_message = { type: type, message: message }
+    end
+    
     def current_controller_is name
         controller_name == name
     end

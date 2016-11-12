@@ -12,3 +12,5 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( home.css )
 # Rails.application.config.assets.precompile += %w( folders.css )
 # Rails.application.config.assets.precompile += %w( up_files.css )
+#Rails.application.config.assets.precompile += %w(vendor/assets/javascripts/*)
+#Rails.application.config.assets.precompile += %w(vendor/assets/stylesheets/*)

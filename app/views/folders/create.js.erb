@@ -1,0 +1,7 @@
+<% unless @remote_error %>
+    $('.modal.new.folder').modal('hide');
+    $('.row.list.folders').empty().append("<%= j render 'folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");    
+<% else %>    
+    $('.modal.new.folder').modal('hide');    
+    setToast('warning', 'Cần có tên folder.');
+<% end %>

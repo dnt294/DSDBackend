@@ -35,6 +35,12 @@ class Folder < ApplicationRecord
 
     before_create :create_chat_room
 
+    ###################################################
+
+    validates :name, presence: true
+
+    ###################################################
+
     def create_chat_room
         self.build_chat_room
         true

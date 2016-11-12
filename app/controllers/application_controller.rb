@@ -3,10 +3,9 @@ class ApplicationController < ActionController::Base
     protect_from_forgery prepend: true
     before_action :configure_permitted_params, if: :devise_controller?
 
-
-
-
     protected
+
+    
 
     def configure_permitted_params
         add_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
