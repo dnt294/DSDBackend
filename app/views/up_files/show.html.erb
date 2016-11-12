@@ -1,18 +1,20 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-9">            
-            <div class="ui header"><%= @up_file.file_name %></div>
+        <div class="col-lg-9 col-md-9 col-sm-9 up-file-box">
             <% if @up_file.check_type 'mp4' %>
-                <%= video_tag( @up_file.link , size: "620x440", controls: true, autoplay: true) %>
+                <div class="video-box">
+                    <%= video_tag( @up_file.link , size: "620x440", controls: true, autoplay: true) %>
+                </div>
             <% elsif @up_file.check_type 'mp3' %>
                 <%= audio_tag( @up_file.link , controls: true, autoplay: true) %>
             <% elsif @up_file.check_type 'pdf' %>
-            <iframe src=<%= @up_file.link %> width="700" height="500" style="border: none;"> </iframe>
-
+                <div class="pdf-box">
+                    <iframe src=<%= @up_file.link %> width="700" height="500" style="border: none;"> </iframe>
+                </div>
             <% end %>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3">
-            <div class="affix">
+            <div class="affix chat-zone">
                 <%= render @up_file.chat_room %>
             </div>
         </div>

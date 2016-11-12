@@ -4,5 +4,8 @@
     <% if current_controller_is 'folders' %>
         <%= render 'shared/headers/header_folders' %>
     <% end %>
+    <% if current_controller_is 'up_files' %>
+    	<%= render 'shared/headers/header_up_files' %>
+    <% end %>
     <%= render 'shared/session' %>
 </div>
