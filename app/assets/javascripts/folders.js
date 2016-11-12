@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function() {
         $('.ui.modal.new.up_file').modal('show');
     });
 
-
+    dummyBindingPopup();
 
     $(document).bind('dragover', function(e) {
         var dropZone = $('#dropzone'),
@@ -68,21 +68,14 @@ $(document).on('turbolinks:load', function() {
             location.reload();
         }
     });
+});
 
+function dummyBindingPopup() {
     $('.popupable').popup({
         on: 'hover',
         hoverable: true,
         inline: true,
+        position: 'top left',
         observeChanges: true,
-        position: 'bottom left'
     });
-});
-
-function dummyBindingPopupListener() {
-    $('body').on('popup', '.popupable', {
-        hoverable: true,
-        inline: true,
-        observeChanges: true,
-        position: 'bottom center'
-    }, function(e) {});
 };

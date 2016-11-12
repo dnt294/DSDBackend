@@ -38,7 +38,7 @@ class FoldersController < ApplicationController
         @folder = current_folder.children.create folder_params
         respond_to do |format|
             format.js {
-                if @folder.save                                        
+                if @folder.save
                     set_children_folders
                     set_children_shortcuts
                 else
@@ -53,27 +53,41 @@ class FoldersController < ApplicationController
     # PATCH/PUT /folders/1.json
     def update
         respond_to do |format|
-            if @folder.update(folder_params)
-                format.html { redirect_to :back, notice: 'Folder was successfully updated.' }
-            else
-                format.html { redirect_to :back, notice: 'Folder chưa đổi được tên.' }
-            end
+            format.js {
+                if @folder.update(folder_params)
+                    set_children_folders
+                    set_children_shortcuts
+                else
+                    @remote_error = true
+                end
+            }
         end
     end
 
     # DELETE /folders/1
     # DELETE /folders/1.json
     def destroy
-        # Khi xóa 1 folder:
-        # - xóa hết các file trong cây con đó (directedshare == true).
-        UpFile.joins(:up_file_shortcuts).where(up_file_shortcuts: {shortcut: false, folder_id: @folder.subtree_ids}).destroy_all
-        # - xóa hết các file shortcut tới cây con của folder (các direct shorcut tự động bị xóa khi xóa file trong câu trên)  .
-        UpFileShortcut.un_directed.where(folder_id:  @folder.subtree_ids).destroy_all
-        # - các folder của cây con tự động bị xóa -> các shortcut của folder cũng tự động bị xóa.
+        respond_to do |format|
+            format.js {
+                begin
+                    # Khi xóa 1 folder:
+                    # - xóa hết các file trong cây con đó (directedshare == true).
+                    UpFile.joins(:up_file_shortcuts).where(up_file_shortcuts: {shortcut: false, folder_id: @folder.subtree_ids}).destroy_all
+                    # - xóa hết các file shortcut tới cây con của folder (các direct shorcut tự động bị xóa khi xóa file trong câu trên)  .
+                    UpFileShortcut.un_directed.where(folder_id:  @folder.subtree_ids).destroy_all
+                    # - các folder của cây con tự động bị xóa -> các shortcut của folder cũng tự động bị xóa.
+                    # - xóa folder
+                    @folder.destroy
+                    
+                    # => load lại cây thư mục
+                    set_children_folders
+                    set_children_shortcuts
+                rescue
+                    @remote_error = true
+                end
+            }
+        end
 
-        # - xóa folder
-        @folder.destroy
-        redirect_to current_folder
     end
 
     # GET /folders/shared_with_me

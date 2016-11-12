@@ -40,7 +40,7 @@
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to folder, method: :delete, data: {confirm: 'Bạn chắc chắn muốn xóa folder này ?'} do %>
+                                <%= link_to folder, method: :delete, remote: true, data: {confirm: 'Bạn chắc chắn muốn xóa folder này ?'} do %>
                                     <i class="icon big trash outline"></i>
                                     <p>Xóa folder</p>
                                 <% end %>

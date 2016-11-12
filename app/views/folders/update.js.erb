@@ -1,0 +1,8 @@
+<% unless @remote_error %>
+    $('.modal.rename').modal('hide');
+    $('.row.list.folders').empty().append("<%= j render 'folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");
+    dummyBindingPopup();
+<% else %>    
+    $('.modal.rename').modal('hide');    
+    setToast('warning', 'Không đổi được tên.');
+<% end %>
