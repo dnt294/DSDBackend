@@ -31,7 +31,8 @@ class UpFilesController < ApplicationController
 
         content_range = request.headers['CONTENT-RANGE']
 
-        if content_range.nil? #file nhỏ hơn 5MB, lưu ko ko phải tính :D
+        if content_range.nil? #file nhỏ hơn 5MB, lưu ko phải tính :D
+            @temp_upfile.status = 'ready'
             @temp_upfile.save
             save_direct_shortcut_for_file @temp_upfile, params[:folder_id]
             return
@@ -39,10 +40,13 @@ class UpFilesController < ApplicationController
 
         content_length = request.headers['CONTENT-LENGTH'].to_i
 
-        begin_of_chunk = content_range[/\ (.*?)-/,1].to_i
+        begin_of_chunk = content_range[/\ (.*?)-/,1].to_i        
+        end_of_chunk = content_range[/-(.*?)\//,1].to_i
+        total_chunk = content_range[/\/(\d+)/,1].to_i
         # "bytes 100-999999/1973660678" will return '100'
 
         if (begin_of_chunk == 0)
+            @temp_upfile.status = 'uploading'
             @temp_upfile.save
             save_direct_shortcut_for_file @temp_upfile, params[:folder_id]
         else
@@ -51,6 +55,10 @@ class UpFilesController < ApplicationController
 
             File.open(@up_file.link.path, "ab") do |f|
                 f.write(up_file_params[:link].read)
+            end
+            
+            if (end_of_chunk == total_chunk - 1)
+                @up_file.status = 'ready'
             end
 
             @up_file.save

@@ -19,14 +19,14 @@ class UpFile < ApplicationRecord
 
     scope :shared_with, -> (user) { user.shared_up_files.merge(UpFileShareAuthority.directed) }
 
-
+    scope :readied, -> { where(status: 'ready') }
     ################################################
 
     before_create :create_chat_room
     before_create :update_link_attributes
 
     TYPES = %W(mp4 mp3 pdf)
-    STATUS = %W(ready uploading copying)
+    STATUS = %W(uploading ready copying deleted)
     
     def check_type type        
         

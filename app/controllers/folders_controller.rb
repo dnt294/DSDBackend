@@ -145,7 +145,7 @@ class FoldersController < ApplicationController
     end
 
     def set_children_up_file_shortcuts
-        @up_file_shortcuts = current_folder.up_file_shortcuts.includes(:up_file)
+        @up_file_shortcuts = current_folder.up_file_shortcuts.joins(:up_file).merge(UpFile.readied)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
