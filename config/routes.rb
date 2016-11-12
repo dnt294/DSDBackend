@@ -92,6 +92,8 @@ Rails.application.routes.draw do
 
         resources :comments, only: [:create]
 
+        resources :chat_rooms, only: [:show]
+
     end
 
     ################################ Cable ##################################

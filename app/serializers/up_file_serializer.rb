@@ -1,8 +1,8 @@
 class UpFileSerializer < ActiveModel::Serializer
-    
-    has_one :chat_room, as: :crmable, serializer: ChatRoomSerializer    
 
     attributes :id, :file_name, :file_size, :file_type, :link_url, :uploader_name
+
+    has_one :chat_room
 
     def url
         object.link.url

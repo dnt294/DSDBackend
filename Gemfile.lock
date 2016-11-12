@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/doabit/semantic-ui-sass.git
-  revision: 0405e7002c7dc40915e8bf4f059f35585a9352eb
+  revision: b51eed21bcdf9a918414d8ef1b57a43a783e0a39
   specs:
     semantic-ui-sass (2.2.6.0)
       sass (>= 3.2)
@@ -56,7 +56,7 @@ GEM
     ancestry (2.2.2)
       activerecord (>= 3.0.0)
     arel (7.1.4)
-    autoprefixer-rails (6.5.2)
+    autoprefixer-rails (6.5.3)
       execjs
     bcrypt (3.1.11)
     bootstrap-sass (3.3.7)

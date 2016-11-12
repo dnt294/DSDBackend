@@ -6,7 +6,7 @@ class Api::UpFilesController < Api::ApiController
 
     # GET /up_files/1
     def show
-        render json: @up_file
+        render json: @up_file#, include: '**'
     end
 
     # PATCH/PUT /up_files/1

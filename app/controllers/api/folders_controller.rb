@@ -5,12 +5,14 @@ class Api::FoldersController < Api::ApiController
     before_action :set_folder, only: [:show, :move, :update, :destroy]
 
     def index
-        @folder = Folder.root_folder_of_user(current_user)#.children.arrange_serializable
+        @folder = Folder.root_folder_of_user(current_user)
         render json: @folder
+        #render json: @folder, include: '**'
     end
 
     def show
         render json: @folder
+        #render json: @folder, include: [:shortcuts, up_files: :user, chat_room: [comments: :user]]
     end
 
     def create

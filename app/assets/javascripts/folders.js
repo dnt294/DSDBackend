@@ -46,8 +46,12 @@ $(document).on('turbolinks:load', function() {
         dataType: 'script',
         maxChunkSize: 5000000, // upload 5MB 1 lần
         maxFileSize: 5000000 * 20, // to nhất là 100MB
-        progress: function(e, data) {
+        maxRetries: 100,
+        retryTimeout: 500,
+        fail: function(e, data) {
 
+        },
+        progress: function(e, data) {
             var complete_percent = parseInt(data.loaded / data.total * 100, 10);
             $('#process-bar').attr('value', complete_percent);
         },
