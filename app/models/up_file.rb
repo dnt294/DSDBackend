@@ -42,13 +42,12 @@ class UpFile < ApplicationRecord
         end
     end
 
-    def to_jq_upload
+    def to_jq_upload(error=nil)
         {
-            "name" => read_attribute(:link),
-            "size" => link.size,
+            "name" => read_attribute(:file_name),
+            "size" => read_attribute(:file_size),
             "url" => link.url,
-            #"thumbnail_url" => link.thumb.url,
-            "delete_url" => up_file_path(self),
+            "delete_url" => Rails.application.routes.url_helpers.up_file_path(self),
             "delete_type" => "DELETE"
         }
     end

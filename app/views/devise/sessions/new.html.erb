@@ -1,3 +1,10 @@
+<% if !flash.nil? && !flash.first.nil? %>    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setToast('error', 'Đăng nhập không thành công.');
+          });
+    </script>    
+<% end %>
 <div class="ui container">
     <h2>Log in</h2>
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -12,4 +19,3 @@
         </div>
     <% end %>
 </div>
-<%= render "devise/shared/links" %>

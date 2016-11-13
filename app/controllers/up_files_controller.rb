@@ -45,7 +45,7 @@ class UpFilesController < ApplicationController
         total_chunk = content_range[/\/(\d+)/,1].to_i
         # "bytes 100-999999/1973660678" will return '100'
 
-        if (begin_of_chunk == 0)
+        if (begin_of_chunk == 0)                           # upload part đầu tiên
             @temp_upfile.status = 'uploading'
             @temp_upfile.save
             save_direct_shortcut_for_file @temp_upfile, params[:folder_id]
@@ -57,13 +57,12 @@ class UpFilesController < ApplicationController
                 f.write(up_file_params[:link].read)
             end
             
-            if (end_of_chunk == total_chunk - 1)
+            if (end_of_chunk == total_chunk - 1)  # kết thúc
                 @up_file.status = 'ready'
             end
 
-            @up_file.save
+            @up_file.save            
         end
-
     end
 
     # PATCH/PUT /up_files/1
@@ -85,6 +84,11 @@ class UpFilesController < ApplicationController
 
     def rename
 
+    end
+
+    def resume_upload
+        @up_file = UpFile.find_by(temp_up_id: params[:id])
+        render json: { file: {size: @up_file.file_size} } and return
     end
 
     private

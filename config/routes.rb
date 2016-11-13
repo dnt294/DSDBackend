@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :up_files do
         member do
             get 'rename'
+            get 'resume_upload'
         end
     end
 
