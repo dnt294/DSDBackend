@@ -1,7 +1,8 @@
 class FoldersController < ApplicationController
 
     include ApplicationHelper
-
+    include FoldersHelper
+    
     before_action :set_folder, only: [:show, :edit, :rename, :get_move, :move, :update, :destroy]
     before_action :authenticate_user!
 
@@ -128,24 +129,6 @@ class FoldersController < ApplicationController
     def set_new_items
         @new_folder = Folder.new
         @new_comment = Comment.new
-    end
-
-    def set_current_children
-        set_children_folders
-        set_children_shortcuts
-        set_children_up_file_shortcuts
-    end
-
-    def set_children_folders
-        @folders = Folder.children_of current_folder
-    end
-
-    def set_children_shortcuts
-        @folder_shortcuts = current_folder.shortcut_relationships.includes(:shortcut)
-    end
-
-    def set_children_up_file_shortcuts
-        @up_file_shortcuts = current_folder.up_file_shortcuts.joins(:up_file).merge(UpFile.readied)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

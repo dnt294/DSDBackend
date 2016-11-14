@@ -1,0 +1,7 @@
+<% unless @remote_error %>    
+    $('.row.list.folders').empty().append("<%= j render 'folders/folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");    
+    dummyBindingPopup();
+    setToast('success', 'Đã xóa folder. Những người khác được chia sẻ vẫn nhìn thấy thư mục này.');
+<% else %>    
+    setToast('warning', 'Có lỗi khi xóa folder.');
+<% end %>

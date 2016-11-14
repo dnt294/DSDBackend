@@ -1,9 +1,11 @@
 production:
   adapter: redis
-  url: 192.168.1.101:14034
+  url: redis://192.168.1.101:14034
 
 development:
-  adapter: async
+  #adapter: async
+  adapter: redis
+  url: redis://127.0.0.1:6379
 
 test:
   adapter: async

@@ -88,7 +88,7 @@
                                 <% end %>
                             </div>
                             <div class="column">
-                                <%= link_to shortcut_rela, method: :delete, data: {confirm: 'Bạn muốn xóa folder này ?'} do %>
+                                <%= link_to shortcut_rela, method: :delete, remote: true, data: {confirm: 'Bạn muốn xóa folder này ?'} do %>
                                     <i class="icon big trash outline"></i>
                                     <p>Xóa folder</p>
                                 <% end %>

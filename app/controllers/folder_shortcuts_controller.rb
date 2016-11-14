@@ -1,6 +1,7 @@
 class FolderShortcutsController < ApplicationController
 
     include ApplicationHelper
+    include FoldersHelper
 
     before_action :set_folder_shortcut, only: [:get_move, :move, :destroy]
 
@@ -24,15 +25,24 @@ class FolderShortcutsController < ApplicationController
         @folder_shortcut.destination_id = params[:new_parent_id]
         if @folder_shortcut.save
             redirect_to current_folder
-        else 
+        else
             redirect_to current_folder
         end
     end
 
     # DELETE /folder_shortcuts/1
     def destroy
-        @folder_shortcut.destroy
-        redirect_to current_folder, notice: 'Đã xóa folder.'
+        respond_to do |format|
+            format.js {
+                if @folder_shortcut.destroy
+                    set_children_folders
+                    set_children_shortcuts
+                else
+                    @remote_error = true
+                end
+            }
+        end
+
     end
 
     private
