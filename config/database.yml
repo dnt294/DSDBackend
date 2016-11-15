@@ -10,12 +10,25 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  adapter: postgresql
-  host: localhost
+  #<<: *default
+  adapter: makara_postgresql
+  #adapter: postgresql  
   username: postgres
   password: 1
-  database: dsd
+  database: dsd  
+  #host: localhost
+  makara:
+    blacklist_duration: 5
+    master_ttl: 5
+    master_strategy: round_robin
+    sticky: true
+    connections:
+    - role: master
+      host: localhost
+      name: pg_master
+    # - role: slave
+    #   url: 'them_vao_sau'
+    #   name: pg_slave
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

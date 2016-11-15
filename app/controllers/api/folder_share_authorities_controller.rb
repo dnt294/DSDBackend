@@ -8,7 +8,8 @@ class Api::FolderShareAuthoritiesController < Api::ApiController
     end
 
     def create
-        @folder_share_authority = FolderShareAuthority.new(folder_share_authority_params)
+        @folder_share_authority = FolderShareAuthority.new(folder_share_authority_params)        
+        byebug
         @user = User.find_by(email: params[:user_email])
         if @user.nil?
             render status: 401, json: {message: 'Không có email này!'}
@@ -87,6 +88,6 @@ class Api::FolderShareAuthoritiesController < Api::ApiController
 
     # Only allow a trusted parameter "white list" through.
     def folder_share_authority_params
-        params.permit(:folder_id, :user_id, :user_email, :can_create, :can_view, :can_rename, :can_move, :can_destroy, :direct_share)
+        params.permit(:folder_id, :user_id, :can_create, :can_view, :can_rename, :can_move, :can_destroy, :direct_share)
     end
 end
