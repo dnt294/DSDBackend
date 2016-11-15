@@ -1,5 +1,6 @@
 class UpFilesController < ApplicationController
     include ApplicationHelper
+    include UpFilesHelper
 
     before_action :set_up_file, only: [:show, :continue_upload, :edit, :rename, :update, :destroy]
     before_action :set_new_items, only: [:show]
@@ -32,7 +33,7 @@ class UpFilesController < ApplicationController
         content_range = request.headers['CONTENT-RANGE']
 
         if content_range.nil? #file nhỏ hơn 5MB, lưu ko phải tính :D
-            @temp_upfile.status = 'ready'            
+            @temp_upfile.status = 'ready'
             @temp_upfile.save
             save_direct_shortcut_for_file @temp_upfile, params[:folder_id]
             return
@@ -40,7 +41,7 @@ class UpFilesController < ApplicationController
 
         content_length = request.headers['CONTENT-LENGTH'].to_i
 
-        begin_of_chunk = content_range[/\ (.*?)-/,1].to_i        
+        begin_of_chunk = content_range[/\ (.*?)-/,1].to_i
         end_of_chunk = content_range[/-(.*?)\//,1].to_i
         total_chunk = content_range[/\/(\d+)/,1].to_i
         # "bytes 100-999999/1973660678" will return '100'
@@ -52,18 +53,28 @@ class UpFilesController < ApplicationController
         else
             @up_file = UpFile.find_by(temp_up_id: @temp_upfile.temp_up_id)
             @up_file.file_size += content_length
-
-            File.open(@up_file.link.path, "ab") do |f|
-                f.write(up_file_params[:link].read)
+            get_ftp_connection do |ftp|
+                full_path = ::File.dirname "#{ENV['ftp_folder']}/#{@up_file.link.path}"
+                base_name = File.basename(@up_file.link.to_s)
+                ftp.chdir(full_path)
+                ftp.getbinaryfile(base_name, base_name, 1024)
+                File.open(base_name, "ab") do |f|
+                    f.write(up_file_params[:link].read)
+                end
+                ftp.putbinaryfile(base_name, base_name, 1024)
+                File.delete(base_name)
             end
-            
+
+
+
             if (end_of_chunk == total_chunk - 1)  # kết thúc
                 @up_file.status = 'ready'
             end
 
-            @up_file.save            
+            @up_file.save
         end
     end
+
 
     # PATCH/PUT /up_files/1
     def update

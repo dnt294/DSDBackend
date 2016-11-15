@@ -1,4 +1,5 @@
 require 'ftp'
+#require 'carrierwave/storage/ftp'
 
 CarrierWave.configure do |config|
     #config.storage = :file
@@ -6,12 +7,12 @@ CarrierWave.configure do |config|
 
     config.storage_engines[:ftp] = "CarrierWave::Storage::FTP"
 
-    config.ftp_host = '192.168.1.101'
-    config.ftp_port = 21
-    config.ftp_user = 'tom'
-    config.ftp_passwd = '1'
-    config.ftp_folder = '/projects/upload'
-    config.ftp_url = "http://192.168.1.101/"
-    config.ftp_passive = true # false by default
+    config.ftp_host = ENV['ftp_host']
+    config.ftp_port = ENV['ftp_port']
+    config.ftp_user = ENV['ftp_user']
+    config.ftp_passwd = ENV['ftp_passwd']
+    config.ftp_folder = ENV['ftp_folder']
+    config.ftp_url = ENV['ftp_url']
+    config.ftp_passive = ENV['ftp_passive']
 
 end

@@ -1,5 +1,5 @@
 require 'carrierwave'
-require 'carrierwave/storage/ftp/ex_ftp'
+require 'ex_ftp'
 
 module CarrierWave
     module Storage
@@ -22,10 +22,12 @@ module CarrierWave
                 end
 
                 def store(file)
-                    connection do |ftp|
-                        #ftp.mkdir_p(::File.dirname "#{@uploader.ftp_folder}/#{path}")
-                        #ftp.chdir(::File.dirname "#{@uploader.ftp_folder}/#{path}")
-                        ftp.chdir('projects/upload')                        
+                    full_path = ::File.dirname "#{@uploader.ftp_folder}/#{path}"
+                    connection do |ftp|                        
+                        ftp.mkdir_p(full_path)
+                    end
+                    connection do |ftp|                        
+                        ftp.chdir(full_path)
                         ftp.put(file.path, filename)
                     end
                 end
@@ -96,23 +98,9 @@ module CarrierWave
                 rescue
                 end
 
-                # def connection
-                #     ftp = ExFTP.new
-                #     ftp.connect(@uploader.ftp_host, @uploader.ftp_port)
-
-                #     begin
-                #         ftp.passive = @uploader.ftp_passive
-                #         ftp.login(@uploader.ftp_user, @uploader.ftp_passwd)
-
-                #         yield ftp
-                #     ensure
-                #         ftp.quit
-                #     end
-                # end
-
                 def connection
-                    ftp = Net::FTP.new(@uploader.ftp_host)
-                    #ftp.connect(@uploader.ftp_host, @uploader.ftp_port)
+                    ftp = ExFTP.new
+                    ftp.connect(@uploader.ftp_host, @uploader.ftp_port)
 
                     begin
                         ftp.passive = @uploader.ftp_passive

@@ -46,8 +46,8 @@ $(document).on('turbolinks:load', function() {
 
     $('#new_up_file').fileupload({
             dataType: 'script',
-            maxChunkSize: 5000000, // upload 5MB 1 lần
-            maxFileSize: 5000000 * 20, // to nhất là 100MB
+            maxChunkSize: 20000000, // upload 20MB 1 lần
+            maxFileSize: 100000000, // to nhất là 100MB
             maxRetries: 100,
             retryTimeout: 500,
             progress: function(e, data) {

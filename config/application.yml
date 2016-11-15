@@ -14,3 +14,11 @@ vb_address: 'http://localhost:3000'
 vb_address_cable: 'http://localhost:3000/cable'
 vb_ip: 'localhost'
 vb_port: '3000'
+
+ftp_host: '192.168.1.101'
+ftp_port: 21
+ftp_user: 'tom'
+ftp_passwd: '1'
+ftp_folder: 'projects/upload'
+ftp_url: "http://192.168.1.101/"
+ftp_passive: true 
