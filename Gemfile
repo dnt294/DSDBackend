@@ -22,6 +22,7 @@ gem 'devise'
 gem 'simple_token_authentication'
 gem 'mini_magick'
 gem 'carrierwave'
+gem 'carrierwave-ftp', git: 'https://github.com/kaanoo2904/carrierwave-ftp.git'
 gem 'counter_culture'
 gem 'active_model_serializers'
 gem "jquery-fileupload-rails"

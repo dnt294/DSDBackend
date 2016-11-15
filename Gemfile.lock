@@ -5,6 +5,14 @@ GIT
     semantic-ui-sass (2.2.6.0)
       sass (>= 3.2)
 
+GIT
+  remote: https://github.com/kaanoo2904/carrierwave-ftp.git
+  revision: 7826a38c34932cf3599a172678d22030ad8facde
+  specs:
+    carrierwave-ftp (0.2.8)
+      carrierwave (>= 0.6.2)
+      net-sftp (~> 2.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -130,6 +138,9 @@ GEM
     mini_magick (4.5.1)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.2.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
@@ -259,6 +270,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   carrierwave
+  carrierwave-ftp!
   cocoon
   counter_culture
   devise

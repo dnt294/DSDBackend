@@ -32,7 +32,7 @@ class UpFilesController < ApplicationController
         content_range = request.headers['CONTENT-RANGE']
 
         if content_range.nil? #file nhỏ hơn 5MB, lưu ko phải tính :D
-            @temp_upfile.status = 'ready'
+            @temp_upfile.status = 'ready'            
             @temp_upfile.save
             save_direct_shortcut_for_file @temp_upfile, params[:folder_id]
             return
