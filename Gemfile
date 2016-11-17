@@ -28,13 +28,13 @@ gem 'counter_culture'
 gem 'active_model_serializers'
 gem "jquery-fileupload-rails"
 
-group :development do
+group :development, :local do
     # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
     gem 'web-console'
     gem 'listen', '~> 3.0.5'
 end
 
-group :development, :test do
+group :development, :test, :local do
     gem 'byebug', platform: :mri
     gem 'rspec-rails', '~> 3.5'
     gem 'factory_girl_rails'
@@ -46,7 +46,7 @@ group :test do
     gem 'sqlite3'
 end
 
-group :production, :development do
+group :production, :development, :local do
     gem 'pg'
 end
 

@@ -18,6 +18,9 @@
         <% folders.each do |folder| %>
             <tr>
                 <td class="full-row-clickable" data-href="<%= folder_path(folder) %>">
+                    <div class="hidden">
+                        <p class="children_folder_id"><%= folder.id %></p>
+                    </div>
                     <i class="ui folder icon"></i>
                     <%= folder.name %>
                 </td>
@@ -110,6 +113,5 @@
                 </td>
             </tr>
         <% end %>
-
     </tbody>
 </table>

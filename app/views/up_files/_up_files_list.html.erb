@@ -23,6 +23,9 @@
         <% up_file_shortcuts.each do |shortcut| %>
             <tr>
                 <td class="full-row-clickable" data-href="<%= up_file_path(shortcut.up_file) %>">
+                <div class="hidden">
+                        <p class="children_up_file_id"><%= shortcut.up_file.id %></p>
+                    </div>
                     <%= shortcut.up_file.file_name %>
                 </td>
                 <td class="full-row-clickable" data-href="<%= up_file_path(shortcut.up_file) %>">

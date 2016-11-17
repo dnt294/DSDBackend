@@ -1,7 +1,14 @@
-<% unless @remote_error %>    
+<% unless @remote_error %>
     $('.row.list.folders').empty().append("<%= j render 'folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");    
     dummyBindingPopup();
     setToast('success', 'Đã xóa folder.');
-<% else %>    
+<% else %>
+    <% case @remote_error[:error] %>
+    <% when 'RecordNotFound' %>
+    $('.row.list.folders').empty().append("<%= j render 'folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");    
+            dummyBindingPopup();
+            setToast('warning', 'Folder đã bị xóa trước đó.');
+        <% when 'Generic' %>
     setToast('warning', 'Có lỗi khi xóa folder.');
+    <% end %>
 <% end %>

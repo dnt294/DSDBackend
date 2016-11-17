@@ -44,3 +44,11 @@ function setToast(type, message) {
         "hideMethod": "fadeOut"
     };
 }
+
+function arrayContainsAnotherArray(source, check) {
+    for (var i = 0; i < source.length; i++) {
+        if (check.indexOf(source[i] > -1))
+            return true;
+    }
+    return false;
+}

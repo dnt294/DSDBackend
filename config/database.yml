@@ -9,6 +9,13 @@ default: &default
   pool: 5
   timeout: 5000
 
+local:
+  adapter: postgresql
+  host: localhost
+  username: postgres
+  password: 1
+  database: dsd
+  
 development:  
   #adapter: postgresql  
   #host: localhost

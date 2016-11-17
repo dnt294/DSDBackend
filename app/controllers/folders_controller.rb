@@ -2,8 +2,8 @@ class FoldersController < ApplicationController
 
     include ApplicationHelper
     include FoldersHelper
-    
-    before_action :set_folder, only: [:show, :edit, :rename, :get_move, :move, :update, :destroy]
+
+    before_action :set_folder, only: [:edit, :rename, :get_move, :move]
     before_action :authenticate_user!
 
     # GET /folders
@@ -18,10 +18,16 @@ class FoldersController < ApplicationController
     # GET /folders/1
     # GET /folders/1.json
     def show
-        set_current_folder params[:id]
-        set_current_children
-        set_new_items
-        @chat_room = current_folder.chat_room
+        begin
+            @folder = Folder.find(params[:id])
+            set_current_folder params[:id]
+            set_current_children
+            set_new_items
+            @chat_room = current_folder.chat_room
+        rescue ActiveRecord::RecordNotFound
+            flash[:warning] = 'Không tìm thấy folder. Quay về home.'
+            redirect_to folders_path
+        end
     end
 
     # GET /folders/new
@@ -42,6 +48,7 @@ class FoldersController < ApplicationController
                 if @folder.save
                     set_children_folders
                     set_children_shortcuts
+                    FoldersCreateBroadcastJob.perform_later @folder.id, current_folder.id
                 else
                     @remote_error = true
                 end
@@ -55,11 +62,19 @@ class FoldersController < ApplicationController
     def update
         respond_to do |format|
             format.js {
-                if @folder.update(folder_params)
+                begin
+                    @folder = Folder.find(params[:id])
+                    @folder.update(folder_params)
                     set_children_folders
                     set_children_shortcuts
-                else
+
+                rescue ActiveRecord::RecordNotFound
+                    set_children_folders
+                    set_children_shortcuts
+                    @remote_error = {error: 'RecordNotFound'}
+                rescue
                     @remote_error = true
+                    @remote_error = {error: 'generic'}
                 end
             }
         end
@@ -71,6 +86,7 @@ class FoldersController < ApplicationController
         respond_to do |format|
             format.js {
                 begin
+                    @folder = Folder.find(params[:id])
                     # Khi xóa 1 folder:
                     # - xóa hết các file trong cây con đó (directedshare == true).
                     UpFile.joins(:up_file_shortcuts).where(up_file_shortcuts: {shortcut: false, folder_id: @folder.subtree_ids}).destroy_all
@@ -78,19 +94,39 @@ class FoldersController < ApplicationController
                     UpFileShortcut.un_directed.where(folder_id:  @folder.subtree_ids).destroy_all
                     # - các folder của cây con tự động bị xóa -> các shortcut của folder cũng tự động bị xóa.
                     # - xóa folder
+                    deleted_folders = @folder.subtree_ids
                     @folder.destroy
-
                     # => load lại cây thư mục
                     set_children_folders
                     set_children_shortcuts
+                    FoldersDestroyBroadcastJob.perform_later deleted_folders
+                rescue ActiveRecord::RecordNotFound
+                    set_children_folders
+                    set_children_shortcuts
+                    @remote_error = {error: 'RecordNotFound'}
                 rescue
-                    @remote_error = true
+                    @remote_error = {error: 'generic'}
                 end
             }
         end
 
     end
 
+    def refresh
+        respond_to do |format|
+            format.js {
+                if params.has_key?(:part)
+                    if params[:part] == 'folder'
+                        set_children_folders
+                        set_children_shortcuts
+                    elsif params[:part] == 'file'
+                        set_children_up_file_shortcuts
+                    end
+
+                end
+            }
+        end
+    end
     # GET /folders/shared_with_me
     def shared_with_me
         @folders = Folder.shared_with current_user

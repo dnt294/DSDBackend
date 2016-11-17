@@ -1,0 +1,7 @@
+$('.modal').modal('hide');
+<% if params[:part] == 'folder' %>
+    $('.row.list.folders').empty().append("<%= j render 'folders_list', folders: @folders, folder_shortcuts: @folder_shortcuts %>");
+<% elsif params[:part] == 'file' %>
+    $('.row.list.up_files').empty().append("<%= j render 'up_files/up_files_list', up_file_shortcuts: @up_file_shortcuts %>");    
+<% end %>
+dummyBindingPopup();

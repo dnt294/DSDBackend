@@ -1,3 +1,8 @@
+<% if flash[:warning] %>
+    <script>
+        setToast('warning', "<%= flash[:warning] %>");
+    </script>
+<% end %>
 <div id="folder-view">
     <%= render 'folder_view' %>
 </div>

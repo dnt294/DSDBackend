@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         member do
             get 'rename'
             get 'resume_upload'
+            get 'check_exist'
         end
     end
 
@@ -31,7 +32,7 @@ Rails.application.routes.draw do
         end
         member do
             get 'get_move'
-            post 'move'
+            post 'move'            
         end
     end
 
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
         end
         member do
             get 'rename'
+            get 'refresh'
             get 'get_move'
             post 'move'
         end

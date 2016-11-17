@@ -1,10 +1,13 @@
+<div class="hidden">
+    <p id="current_folder"><%= @current_folder.id %></p>    
+</div>
 <div class="container-fluid padding-2-size">
     <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="ui fluid huge vertical menu">
                 <%= link_to 'Thư mục của tôi', folders_path, class: 'active teal item'  %>
                 <%= link_to 'Được chia sẻ', shared_with_me_folders_path, class: 'item'  %>
-                <%= link_to 'Bài học chung', '#', class: 'item'  %>
+                <%# link_to 'Bài học chung', '#', class: 'item'  %>
             </div>
         </div>
         <div class="col-lg-7 col-md-7 col-sm-7">
@@ -40,7 +43,7 @@
     </div>
 </div>
 <div class="ui small modal share-manager">
-    <div class="header">Quản lý quyền chia sẻ</div>    
+    <div class="header">Quản lý quyền chia sẻ</div>
     <div class="content">
     </div>
 </div>

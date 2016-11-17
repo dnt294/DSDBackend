@@ -39,6 +39,7 @@ class UpFileShortcutsController < ApplicationController
         begin
             @new_shortcut.save
             redirect_to shared_with_me_folders_path
+            UpFilesCreateBroadcastJob.perform_later root_folder_of_user(current_user).id
         rescue ActiveRecord::ActiveRecordError
             redirect_to shared_with_me_folders_path
         end
@@ -48,7 +49,7 @@ class UpFileShortcutsController < ApplicationController
         @folders_tree = Folder.root_folder_of_user(current_user).subtree.arrange
     end
 
-    def move        
+    def move
         @up_file_shortcut.folder_id = params[:new_parent_id]
         if @up_file_shortcut.save
             redirect_to current_folder
@@ -59,11 +60,13 @@ class UpFileShortcutsController < ApplicationController
 
     # DELETE /up_file_shortcuts/1
     def destroy
+        up_file_id = @up_file_shortcut.up_file.id
         unless @up_file_shortcut.shortcut?
             @up_file_shortcut.up_file.destroy
         end
         @up_file_shortcut.destroy
-        redirect_to current_folder, notice: 'Đã xóa file.'
+        UpFilesDestroyBroadcastJob.set(wait: 5.second).perform_later up_file_id
+        redirect_to current_folder, notice: 'Đã xóa file.'        
     end
 
     private
