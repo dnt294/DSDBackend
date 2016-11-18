@@ -10,15 +10,15 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
-vb_address: 'http://localhost:3000'
-vb_address_cable: 'http://localhost:3000/cable'
-vb_ip: 'localhost'
+vb_address: 'http://172.20.10.8:3000'
+vb_address_cable: 'ws://172.20.10.8:3000/cable'
+vb_ip: '172.20.10.8'
 vb_port: '3000'
 
-ftp_host: '192.168.1.101'
+ftp_host: '172.20.10.11'
 ftp_port: 21
-ftp_user: 'tom'
+ftp_user: 'trinhtu'
 ftp_passwd: '1'
 ftp_folder: 'projects/upload'
-ftp_url: "http://192.168.1.101/"
+ftp_url: "http://172.20.10.11/"
 ftp_passive: true 

@@ -8,8 +8,11 @@ Rails.application.configure do
     config.asset_host = ENV["vb_address"]
 
     config.cache_classes = false
+
     config.action_cable.url = ENV["vb_address_cable"]
+
     config.action_cable.disable_request_forgery_protection = true
+
     config.web_console.whiny_requests = false
     # Do not eager load code on boot.
     config.eager_load = false

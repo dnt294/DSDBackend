@@ -25,6 +25,14 @@ $(document).on('turbolinks:load', function() {
                         });
 
                         // nếu current folder bị xóa => refresh
+			for (var i = 0; i< deleted_folders.length; i++) {
+				if (deleted_folders[i] == current_folder) {
+					console.log('deleted current folder! Return to home page');
+					window.location.replace('/folders');
+					break;
+				}
+			}
+
                         if (deleted_folders.indexOf(current_folder) > -1) {
                             console.log('deleted current folder! move to root!');
                             window.location.replace('/folders');

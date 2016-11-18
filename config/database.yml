@@ -30,7 +30,7 @@ development:
     sticky: true
     connections:
     - role: master
-      url: 'postgresql://192.168.1.101:5432'
+      url: 'postgresql://172.20.10.8:5432'
       name: pg_master
     #- role: slave
       #url: 'them_vao_sau'
