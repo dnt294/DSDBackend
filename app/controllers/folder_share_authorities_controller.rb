@@ -1,5 +1,5 @@
 class FolderShareAuthoritiesController < ApplicationController
-    before_action :set_folder_share_authority, only: [:show, :edit, :update, :destroy]
+    before_action :set_folder_share_authority, only: [:show, :edit]
 
     # GET /folder_share_authorities
     def index
@@ -28,15 +28,17 @@ class FolderShareAuthoritiesController < ApplicationController
     def create
         @folder_share_authority = FolderShareAuthority.new(folder_share_authority_params)
         @user = User.find_by(email: params[:user_email])
+         @folder = Folder.find(params[:folder_share_authority][:folder_id])
         if @user.nil?
-            @return_message = 'Không tìm thấy email này.'
+            @remote_error = {error: 'Khong tim thay email nay.'}
+        elsif @user == @folder.creator
+	    @remote_error = { error: 'User nay chinh la nguoi tao folder nay.' }
         else
             @folder_share_authority.user = @user
             begin
                 @folder_share_authority.save
-                @return_message = "Chia sẻ với #{@user.username}"
             rescue ActiveRecord::ActiveRecordError
-                @return_message = "Có lỗi xảy ra ?"
+	    @remote_error = { error: 'Da chia se voi nguoi nay roi.' }
             end
         end
 
@@ -49,6 +51,10 @@ class FolderShareAuthoritiesController < ApplicationController
 
     # PATCH/PUT /folder_share_authorities/1
     def update
+        begin
+            @folder_share_authority = FolderShareAuthority.find(params[:id])
+        rescue ActiveRecord::ActiveRecordError
+        end
         update_rights_for_item @folder_share_authority
         if @folder_share_authority.save
             respond_to do |format|
@@ -73,6 +79,10 @@ class FolderShareAuthoritiesController < ApplicationController
 
     # DELETE /folder_share_authorities/1
     def destroy
+	begin
+            @folder_share_authority = FolderShareAuthority.find(params[:id])
+        rescue ActiveRecord::ActiveRecordError
+        end
         # khi xóa chia sẻ -> xóa luôn cả các shortcut của chia sẻ đó.
         @folder_id = @folder_share_authority.folder_id
         begin

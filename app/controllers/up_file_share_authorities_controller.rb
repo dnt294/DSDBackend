@@ -1,5 +1,5 @@
 class UpFileShareAuthoritiesController < ApplicationController
-    before_action :set_up_file_share_authority, only: [:show, :edit, :update, :destroy]
+    before_action :set_up_file_share_authority, only: [:show, :edit]
 
     # GET /up_file_share_authorities
     def index
@@ -27,16 +27,18 @@ class UpFileShareAuthoritiesController < ApplicationController
     # POST /up_file_share_authorities
     def create
         @up_file_share_authority = UpFileShareAuthority.new(up_file_share_authority_params)
+         @up_file = UpFile.find(params[:up_file_share_authority][:up_file_id])
         @user = User.find_by(email: params[:user_email])
         if @user.nil?
-            @return_message = 'Không tìm thấy email này.'
+            @remote_error = {error: 'Khong tim thay email nay.'}
+        elsif @user == @up_file.uploader
+	    @remote_error = { error: 'User nay chinh la nguoi tao file nay.' }
         else
             @up_file_share_authority.user = @user
             begin
                 @up_file_share_authority.save
-                @return_message = "Chia sẻ với #{@user.username}"
             rescue ActiveRecord::ActiveRecordError
-                @return_message = "Có lỗi xảy ra ?"
+	    @remote_error = { error: 'Da chia se voi nguoi nay roi.' }
             end            
         end       
 
@@ -49,6 +51,10 @@ class UpFileShareAuthoritiesController < ApplicationController
 
     # PATCH/PUT /up_file_share_authorities/1
     def update
+        begin
+            @up_file_share_authority = UpFileShareAuthority.find(params[:id])
+        rescue ActiveRecord::ActiveRecordError
+        end
 
         update_rights_for_item @up_file_share_authority
         if @up_file_share_authority.save
@@ -74,6 +80,10 @@ class UpFileShareAuthoritiesController < ApplicationController
 
     # DELETE /up_file_share_authorities/1
     def destroy
+        begin
+            @up_file_share_authority = UpFileShareAuthority.find(params[:id])
+        rescue ActiveRecord::ActiveRecordError
+        end
 
         @up_file_id = @up_file_share_authority.up_file_id
         begin

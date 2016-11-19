@@ -73,7 +73,6 @@ class FoldersController < ApplicationController
                     set_children_shortcuts
                     @remote_error = {error: 'RecordNotFound'}
                 rescue
-                    @remote_error = true
                     @remote_error = {error: 'generic'}
                 end
             }

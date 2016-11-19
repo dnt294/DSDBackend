@@ -1,1 +1,6 @@
-$('#up-file-share-authorities').empty().append("<%= j render 'authorities_list', authorities: @up_file_share_authorities %>")
+<% unless @remote_error %>
+    $('#up-file-share-authorities').empty().append("<%= j render 'authorities_list', authorities: @up_file_share_authorities %>")
+<% else %>
+    setToast('warning', "<%= @remote_error[:error].to_s %>");
+<% end %>
+
