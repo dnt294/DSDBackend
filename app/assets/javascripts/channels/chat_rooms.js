@@ -14,7 +14,7 @@ $(document).on('turbolinks:load', function() {
         },
 
         received: function(data) {
-            return $('#comments').prepend(this.renderMessage(data));
+            return $('#comments').append(this.renderMessage(data));
         },
 
         // extra function

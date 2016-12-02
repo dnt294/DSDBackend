@@ -45,7 +45,7 @@ $(document).on('turbolinks:load', function() {
                         var collapse = arrayContainsAnotherArray(children_folder_ids, deleted_folders);
                         if (collapse) {
                             console.log('has children deleted ! Refresh !');
-                            $.get('/folders/' + current_folder + '/refresh');
+                            $.get('/folders/' + current_folder + '/refresh?part=folder');
                         }
                     }
                     break;
