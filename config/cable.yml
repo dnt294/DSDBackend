@@ -3,9 +3,9 @@ production:
   url: redis://192.168.1.101:14034
 
 development:
-  adapter: async
-  #adapter: redis
-  #url: redis://172.20.10.11:6379
+  #adapter: async
+  adapter: redis
+  url: redis://172.20.10.4:6379
 
 local:
   adapter: async

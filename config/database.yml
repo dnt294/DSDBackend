@@ -28,7 +28,7 @@ development:
     sticky: true
     connections:
     - role: master
-      url: 'postgresql://localhost:5432'
+      url: 'postgresql://172.20.10.2:5432'
       name: pg_master
     #- role: slave
       #url: 'postgresql://192.168.1.107:5432'

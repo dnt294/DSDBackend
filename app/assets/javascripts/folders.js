@@ -46,8 +46,8 @@ $(document).on('turbolinks:load', function() {
 
     $('#new_up_file').fileupload({
             dataType: 'script',
-            maxChunkSize: 20000000, // upload 20MB 1 lần
-            maxFileSize: 100000000, // to nhất là 100MB
+            maxChunkSize: 5000000, // upload 5MB 1 lần
+            maxFileSize: 50000000, // to nhất là 50MB
             maxRetries: 100,
             retryTimeout: 500,
             progress: function(e, data) {
@@ -60,8 +60,8 @@ $(document).on('turbolinks:load', function() {
                 file = data.files[0];
                 if (types.test(file.type) || types.test(file.name)) {
 
-                    if (file.size > 100000000) {
-                        alert('Quá kích thước cho phép 100MB.');
+                    if (file.size > 50000000) {
+                        alert('Quá kích thước cho phép 50MB.');
                     } else {
                         data.context = $(tmpl("template-upload", data.files[0]));
                         $('#new_up_file').append(data.context);
